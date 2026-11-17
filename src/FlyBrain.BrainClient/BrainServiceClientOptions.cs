@@ -2,7 +2,9 @@ namespace FlyBrain.BrainClient;
 
 public sealed class BrainServiceClientOptions
 {
-    public const string BaseAddressEnvironmentVariable = "TOPO_BRAIN_SERVICE_URL";
+    public const string BaseAddressEnvironmentVariable = "FLYBRAIN_BRAIN_SERVICE_URL";
+
+    public const string LegacyBaseAddressEnvironmentVariable = "TOPO_BRAIN_SERVICE_URL";
 
     public static Uri DefaultBaseAddress { get; } = new("http://127.0.0.1:8765");
 
@@ -11,6 +13,10 @@ public sealed class BrainServiceClientOptions
     public static BrainServiceClientOptions FromEnvironment()
     {
         var configuredValue = Environment.GetEnvironmentVariable(BaseAddressEnvironmentVariable);
+        if (string.IsNullOrWhiteSpace(configuredValue))
+        {
+            configuredValue = Environment.GetEnvironmentVariable(LegacyBaseAddressEnvironmentVariable);
+        }
         if (string.IsNullOrWhiteSpace(configuredValue))
         {
             return new BrainServiceClientOptions();

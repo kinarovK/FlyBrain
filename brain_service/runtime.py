@@ -53,11 +53,13 @@ class BrainRuntime:
             if metadata.get("dataset") != "FlyWire FAFB v783" or int(arrays["root_ids"].size) != WHOLE_NODES:
                 raise NeuralDynamicsError("Required real FAFB v783 canonical graph is unavailable.")
             self.phase4_config, self.whole_config, self.graph_metadata, self._graph = phase4, whole, metadata, (metadata, arrays)
-            # Both supported domains are prepared before readiness, sharing the
-            # single validated memory-mapped graph held above.
+            # The reference domain is always prepared before readiness. The whole
+            # domain (~1.4 GB) is prepared eagerly only when configured; otherwise
+            # it is prepared on the first whole-session request.
             self.status = "ready"
             self.domain("reference")
-            self.domain("whole")
+            if self.config.eager_whole_domain:
+                self.domain("whole")
             self.startup_timings["startup_seconds"] = time.perf_counter() - started
         except Exception as exc:
             self.status, self.failure_reason = "failed", "real graph/configuration validation failed"

@@ -81,7 +81,7 @@
           </TextBlock>
           <TextBlock Style="{StaticResource Label}" Text="Replay speed (ms per hour)"/>
           <Slider Minimum="0" Maximum="300" Value="{Binding ReplayDelayMilliseconds}" TickFrequency="10" IsSnapToTickEnabled="True"/>
-          <ProgressBar Height="8" Margin="0,10,0,0" Maximum="100" Value="{Binding Progress}"/>
+          <ProgressBar Height="8" Margin="0,10,0,0" Maximum="100" Value="{Binding Progress, Mode=OneWay}"/>
           <TextBlock Margin="0,6,0,0" Foreground="#AAB7C5" TextWrapping="Wrap" Text="{Binding StatusText}"/>
         </StackPanel>
       </Border>

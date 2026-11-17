@@ -21,4 +21,8 @@
     <ProjectReference Include="..\..\..\src\Trader.Brain\Trader.Brain.csproj" />
     <ProjectReference Include="..\..\..\src\FlyBrain.Common\FlyBrain.Common.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
 </Project>

@@ -9,7 +9,7 @@ namespace FlyBrain.BrainHost;
 [SupportedOSPlatform("windows")]
 internal sealed class WindowsJobObject : IDisposable
 {
-    private const int JobObjectExtendedLimitInformation = 9;
+    private const int ExtendedLimitInformationClass = 9;
     private const uint JobObjectLimitKillOnJobClose = 0x00002000;
 
     private readonly SafeFileHandle _handle;
@@ -34,7 +34,7 @@ internal sealed class WindowsJobObject : IDisposable
         try
         {
             Marshal.StructureToPtr(info, pointer, false);
-            if (!SetInformationJobObject(handle, JobObjectExtendedLimitInformation, pointer, (uint)length) ||
+            if (!SetInformationJobObject(handle, ExtendedLimitInformationClass, pointer, (uint)length) ||
                 !AssignProcessToJobObject(handle, process.Handle))
             {
                 handle.Dispose();

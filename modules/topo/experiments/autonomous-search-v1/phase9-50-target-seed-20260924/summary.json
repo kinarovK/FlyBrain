@@ -1,0 +1,38 @@
+{
+  "HillClimbing": {
+    "Policy": "hill-climbing",
+    "TargetCount": 50,
+    "SuccessCount": 11,
+    "SuccessRate": 0.22,
+    "MeanIterationsToSuccess": 132.36363636363637,
+    "MedianIterationsToSuccess": 140,
+    "MeanFinalAngularErrorDegrees": 18.48299817170977,
+    "MedianFinalAngularErrorDegrees": 11.552006058199723,
+    "MaximumFinalAngularErrorDegrees": 159.5644157986517,
+    "MeanBestAngularErrorDegrees": 8.171937857374699,
+    "MeanCandidateEvaluationMilliseconds": 218.57231750847782,
+    "TotalRuntimeMilliseconds": 2449548.8188
+  },
+  "RandomBaseline": {
+    "Policy": "random-baseline",
+    "TargetCount": 50,
+    "SuccessCount": 0,
+    "SuccessRate": 0,
+    "MeanIterationsToSuccess": null,
+    "MedianIterationsToSuccess": null,
+    "MeanFinalAngularErrorDegrees": 101.40213215915844,
+    "MedianFinalAngularErrorDegrees": 96.20831554963499,
+    "MaximumFinalAngularErrorDegrees": 168.84109974949857,
+    "MeanBestAngularErrorDegrees": 5.394275456309729,
+    "MeanCandidateEvaluationMilliseconds": 221.31371613599967,
+    "TotalRuntimeMilliseconds": 2766706.5938999993
+  },
+  "DirectComparison": {
+    "HillClimbingExactSuccessCount": 11,
+    "RandomBaselineExactSuccessCount": 0,
+    "ExactSuccessRateDifference": 0.22,
+    "MeanFinalAngularErrorDifferenceDegrees": -82.91913398744867,
+    "MeanBestAngularErrorDifferenceDegrees": 2.77766240106497,
+    "MeanCandidateEvaluationTimeDifferenceMilliseconds": -2.7413986275218463
+  }
+}

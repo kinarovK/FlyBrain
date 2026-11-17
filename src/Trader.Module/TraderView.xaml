@@ -1,0 +1,101 @@
+<UserControl x:Class="Trader.Module.TraderView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:charts="clr-namespace:Trader.Module.Controls"
+             Background="#10151C" Foreground="#E7EDF5">
+  <UserControl.Resources>
+    <Style TargetType="Border"><Setter Property="Background" Value="#18212C"/><Setter Property="CornerRadius" Value="10"/><Setter Property="Padding" Value="14"/></Style>
+    <Style TargetType="Button"><Setter Property="Margin" Value="6,0,0,0"/><Setter Property="Padding" Value="14,8"/><Setter Property="Background" Value="#2B9CCB"/><Setter Property="Foreground" Value="White"/><Setter Property="BorderThickness" Value="0"/></Style>
+    <Style x:Key="Label" TargetType="TextBlock"><Setter Property="Foreground" Value="#8EA1B6"/><Setter Property="Margin" Value="0,6,0,0"/></Style>
+  </UserControl.Resources>
+  <Grid Margin="18">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+    <DockPanel Grid.Row="0" Margin="0,0,0,12">
+      <StackPanel>
+        <TextBlock FontSize="24" FontWeight="SemiBold" Text="TRADER — a fruit fly paper-trades BTC/USDT"/>
+        <TextBlock Foreground="#8EA1B6" TextWrapping="Wrap"
+                   Text="Offline 2024 replay · simulated money only · the connectome is fixed and its BUY/SELL readout is an arbitrary, application-defined mapping, not a prediction model"/>
+        <TextBlock Margin="0,4,0,0" Foreground="#AAB7C5" TextWrapping="Wrap" Text="{Binding DataStatus}"/>
+      </StackPanel>
+      <Border DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Top" Background="#21302A" Padding="12,6">
+        <StackPanel>
+          <TextBlock FontWeight="SemiBold" Text="{Binding BrainState, StringFormat=Trader session: {0}}"/>
+          <TextBlock Foreground="#AAB7C5" MaxWidth="460" TextWrapping="Wrap" Text="{Binding BrainDetail}"/>
+        </StackPanel>
+      </Border>
+    </DockPanel>
+
+    <Grid Grid.Row="1">
+      <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="380"/></Grid.ColumnDefinitions>
+      <Grid.RowDefinitions><RowDefinition Height="2*"/><RowDefinition Height="3*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+
+      <Border Grid.Row="0" Grid.Column="0" Margin="0,0,12,12">
+        <charts:LineChart Title="BTC/USDT close (USDT)" Series="{Binding PriceSeries}" ValueFormat="N0"/>
+      </Border>
+      <Border Grid.Row="1" Grid.Column="0" Margin="0,0,12,12">
+        <charts:LineChart Title="Portfolio value (USDT)" Series="{Binding EquitySeries}" ValueFormat="N0"/>
+      </Border>
+      <Border Grid.Row="2" Grid.Column="0" Margin="0,0,12,0">
+        <DataGrid ItemsSource="{Binding Results}" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column"
+                  Background="Transparent" RowBackground="#18212C" AlternatingRowBackground="#1D2834" Foreground="#E7EDF5"
+                  GridLinesVisibility="None" BorderThickness="0" MinHeight="120">
+          <DataGrid.ColumnHeaderStyle>
+            <Style TargetType="DataGridColumnHeader"><Setter Property="Background" Value="#121A23"/><Setter Property="Foreground" Value="#8EA1B6"/><Setter Property="Padding" Value="8,4"/></Style>
+          </DataGrid.ColumnHeaderStyle>
+          <DataGrid.Columns>
+            <DataGridTextColumn Header="Strategy" Binding="{Binding Strategy}" Width="2*"/>
+            <DataGridTextColumn Header="Final (USDT)" Binding="{Binding FinalEquity}" Width="*"/>
+            <DataGridTextColumn Header="Return" Binding="{Binding ReturnPercent}" Width="*"/>
+            <DataGridTextColumn Header="Max drawdown" Binding="{Binding MaxDrawdownPercent}" Width="*"/>
+            <DataGridTextColumn Header="Trades" Binding="{Binding Trades}" Width="0.7*"/>
+            <DataGridTextColumn Header="Fees" Binding="{Binding Fees}" Width="*"/>
+            <DataGridTextColumn Header="Buy/Sell/Hold signals" Binding="{Binding Signals}" Width="1.4*"/>
+          </DataGrid.Columns>
+        </DataGrid>
+      </Border>
+
+      <Border Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Margin="0,0,0,12">
+        <StackPanel>
+          <TextBlock FontWeight="SemiBold" Text="THE FLY'S VIEW"/>
+          <TextBlock Style="{StaticResource Label}" Text="Hour"/>
+          <TextBlock FontSize="18" Text="{Binding CurrentTime}"/>
+          <TextBlock Style="{StaticResource Label}" Text="BTC/USDT close"/>
+          <TextBlock FontSize="18" Text="{Binding CurrentPrice, StringFormat={}{0:N2}}"/>
+          <TextBlock Style="{StaticResource Label}" Text="Market tokens sent to the brain (return · trend · volatility)"/>
+          <TextBlock FontSize="22" FontWeight="SemiBold" Foreground="#65D6FF" Text="{Binding CurrentTokens}"/>
+          <TextBlock Style="{StaticResource Label}" Text="Readout pools (mean response, mV)"/>
+          <TextBlock Text="{Binding BuyScore, StringFormat=BUY pool: {0:F5}}"/>
+          <TextBlock Text="{Binding SellScore, StringFormat=SELL pool: {0:F5}}"/>
+          <TextBlock Style="{StaticResource Label}" Text="Decision"/>
+          <TextBlock FontSize="22" FontWeight="SemiBold" Text="{Binding CurrentDecision}"/>
+          <TextBlock Style="{StaticResource Label}" Text="Fly portfolio value (USDT)"/>
+          <TextBlock FontSize="22" FontWeight="SemiBold" Text="{Binding BrainEquity, StringFormat={}{0:N2}}"/>
+          <TextBlock Style="{StaticResource Label}" Text="{Binding CacheSize, StringFormat=Distinct market states asked: {0}}"/>
+          <TextBlock Style="{StaticResource Label}">
+            <Run Text="Start:"/> <Run Text="{Binding InitialCashText, Mode=OneWay}"/> <Run Text="· fee per trade:"/> <Run Text="{Binding FeeText, Mode=OneWay}"/>
+          </TextBlock>
+          <TextBlock Style="{StaticResource Label}" Text="Replay speed (ms per hour)"/>
+          <Slider Minimum="0" Maximum="300" Value="{Binding ReplayDelayMilliseconds}" TickFrequency="10" IsSnapToTickEnabled="True"/>
+          <ProgressBar Height="8" Margin="0,10,0,0" Maximum="100" Value="{Binding Progress, Mode=OneWay}"/>
+          <TextBlock Margin="0,6,0,0" Foreground="#AAB7C5" TextWrapping="Wrap" Text="{Binding StatusText}"/>
+        </StackPanel>
+      </Border>
+      <Border Grid.Row="2" Grid.Column="1">
+        <ListBox ItemsSource="{Binding Log}" Height="160" Background="Transparent" BorderThickness="0"
+                 Foreground="#AAB7C5" FontFamily="Consolas" FontSize="10"/>
+      </Border>
+    </Grid>
+
+    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+      <Button Command="{Binding LoadDataCommand}" Content="RELOAD DATA"/>
+      <Button Command="{Binding RunBacktestCommand}" Content="RUN BACKTEST (ALL)"/>
+      <Button Command="{Binding ReplayCommand}" Content="REPLAY WITH THE FLY"/>
+      <Button Command="{Binding StopCommand}" Content="STOP" Background="#B5523B"/>
+    </StackPanel>
+  </Grid>
+</UserControl>

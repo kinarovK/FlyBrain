@@ -1,5 +1,11 @@
 # FlyTrader Project Handoff
 
+> **FlyBrain note (2026-11-18):** this repository is now FlyBrain. Start with
+> [FLYBRAIN_HANDOFF.md](FLYBRAIN_HANDOFF.md). This document still governs the
+> Python brain foundation; its "out of scope" list (C# client, UI, trading) is
+> superseded by [ADR 0002](project/adr/0002-flybrain-monorepo.md). Paths such as
+> `../../docs/project/...` now resolve to `docs/project/...`.
+
 This is the onboarding guide for agents and developers extending FlyTrader.
 Read it before modifying code, data, neural behaviour, or API contracts.
 

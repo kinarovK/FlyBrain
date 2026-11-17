@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FlyBrain.BrainClient\FlyBrain.BrainClient.csproj" />
+    <ProjectReference Include="..\FlyBrain.Modules.Abstractions\FlyBrain.Modules.Abstractions.csproj" />
+    <ProjectReference Include="..\Trader.Core\Trader.Core.csproj" />
+    <ProjectReference Include="..\Trader.Market\Trader.Market.csproj" />
+    <ProjectReference Include="..\Trader.Brain\Trader.Brain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Trader.Module.Tests" />
+  </ItemGroup>
+</Project>

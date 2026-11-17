@@ -1,0 +1,19 @@
+{
+  "SchemaVersion": 2,
+  "Seed": 20260924,
+  "MaximumIterations": 250,
+  "MutationRadiiDegrees": [
+    30,
+    15,
+    8,
+    4,
+    2,
+    1
+  ],
+  "NonImprovingAttemptsBeforeExplore": 12,
+  "HistoryLimit": 100,
+  "TargetCount": 50,
+  "FrozenModel": "token-readout-v1.json",
+  "ExecutionMode": "reference",
+  "TransmitterMode": "unsigned"
+}

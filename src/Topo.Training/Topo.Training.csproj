@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Topo.Core\Topo.Core.csproj" />
+    <ProjectReference Include="..\FlyBrain.Common\FlyBrain.Common.csproj" />
+    <ProjectReference Include="..\FlyBrain.BrainClient\FlyBrain.BrainClient.csproj" />
+  </ItemGroup>
+</Project>

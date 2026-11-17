@@ -1,0 +1,8 @@
+{
+  "format": "flytrader-whole-brain-v1",
+  "version": 1,
+  "tiers": {"reference": 912, "tier_5k": 5000, "tier_20k": 20000, "tier_50k": 50000, "whole": 139255},
+  "memory": {"available_memory_fraction": 0.6, "justification": "experimental_assumption: leave host headroom for source memory maps and operating system"},
+  "events": {"max_recorded_events": 2000000, "justification": "experimental_assumption: cap output storage while retaining exact aggregate counters"},
+  "analysis": {"max_distance_hops": 3, "top_active_limit": 50, "broad_activation_fraction": 0.25, "pathological_activation_fraction": 0.75, "justification": "experimental_assumption: report scale-dependent activation categories without retuning the model"}
+}

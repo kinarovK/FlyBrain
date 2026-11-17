@@ -1,0 +1,64 @@
+{
+  "format": "flytrader-neural-v1",
+  "version": 1,
+  "seed": 783,
+  "source": {
+    "dataset": "FlyWire FAFB v783",
+    "graph_format": "flytrader-sparse-v1",
+    "graph_policy": "induced_canonical_proofread_nodes"
+  },
+  "selection": {
+    "query": {"flow": "afferent", "super_class": "sensory", "cell_type": "ORN_DA1"},
+    "input_limit": 16,
+    "hop_caps": [128, 256, 512],
+    "justification": "experimental_assumption: bounded deterministic validation subgraph (ADR-0003)"
+  },
+  "lif": {
+    "dt_ms": 0.1,
+    "v_rest_mV": -52.0,
+    "v_reset_mV": -52.0,
+    "v_threshold_mV": -45.0,
+    "tau_m_ms": 20.0,
+    "tau_syn_ms": 5.0,
+    "refractory_ms": 2.2,
+    "justification": {
+      "dt_ms": "experimental_assumption: Euler resolution",
+      "v_rest_mV": "citation: Shiu et al. 2024 computational-model methods",
+      "v_reset_mV": "citation: Shiu et al. 2024 computational-model methods",
+      "v_threshold_mV": "citation: Shiu et al. 2024 computational-model methods",
+      "tau_m_ms": "citation: Shiu et al. 2024 computational-model methods",
+      "tau_syn_ms": "citation: Shiu et al. 2024 computational-model methods",
+      "refractory_ms": "citation: Shiu et al. 2024 computational-model methods"
+    }
+  },
+  "weights": {
+    "transform": "normalized_saturating",
+    "synaptic_scale_mV": 0.02,
+    "percentile": 99.0,
+    "justification": "experimental_assumption: structural synapse counts are normalized, not calibrated physiological weights"
+  },
+  "transmitter": {
+    "mode": "unsigned",
+    "confidence_threshold": 0.7,
+    "fallback_sign": 1.0,
+    "justification": "experimental_assumption: only confident GABA/ACh signs are approximated; all other rows use unsigned fallback"
+  },
+  "stimulus": {
+    "baseline_ms": 100.0,
+    "duration_ms": 100.0,
+    "recovery_ms": 300.0,
+    "external_current_mV_per_ms": 2.0,
+    "justification": "experimental_assumption: deterministic square stimulus for propagation validation"
+  },
+  "safety": {
+    "max_simultaneous_spike_fraction": 0.5,
+    "max_consecutive_synchronous_steps": 5,
+    "max_spikes_per_neuron": 250,
+    "max_abs_membrane_mV": 250.0,
+    "justification": "experimental_assumption: report invalid/runaway regimes rather than presenting them as biological activity"
+  },
+  "output": {
+    "trace_neuron_limit": 8,
+    "justification": "experimental_assumption: bounded diagnostics; full state is intentionally not persisted"
+  }
+}

@@ -1,0 +1,31 @@
+# Python environments and cache
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.pytest_tmp/
+.matplotlib-cache/
+
+# .NET build output
+**/bin/
+**/obj/
+
+# FlyWire source and derived data: retain only the usage README and placeholders.
+/data/flywire/*
+!/data/flywire/README.md
+!/data/flywire/.gitkeep
+
+# Local validation output and partial downloads
+*.part
+*.partial
+
+# Local market data (downloaded by the user, see data/market/README.md)
+/data/market/*
+!/data/market/README.md
+
+# IDE
+.vs/
+*.user
+*.suo
+TestResults/
+*.trx

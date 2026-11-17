@@ -1,10 +1,10 @@
-using Topo.App.Services;
-using Topo.App.ViewModels;
+using Topo.Module.Services;
+using Topo.Module.ViewModels;
 using Topo.Core;
 using Topo.Training;
 using Xunit;
 
-namespace Topo.App.Tests;
+namespace Topo.Module.Tests;
 
 public sealed class AutonomousSearchViewModelTests
 {

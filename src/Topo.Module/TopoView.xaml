@@ -1,14 +1,13 @@
-<Window x:Class="Topo.App.MainWindow"
+<UserControl x:Class="Topo.Module.TopoView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
-        Title="Topo" Width="1440" Height="900" MinWidth="1040" MinHeight="680"
-        WindowStartupLocation="CenterScreen" Background="#10151C" Foreground="#E7EDF5">
-  <Window.Resources>
+             Background="#10151C" Foreground="#E7EDF5">
+  <UserControl.Resources>
     <Style TargetType="Border"><Setter Property="Background" Value="#18212C"/><Setter Property="CornerRadius" Value="10"/><Setter Property="Padding" Value="16"/></Style>
     <Style TargetType="Button"><Setter Property="Margin" Value="6,0,0,0"/><Setter Property="Padding" Value="14,8"/><Setter Property="Background" Value="#2B9CCB"/><Setter Property="Foreground" Value="White"/></Style>
     <Style TargetType="TextBlock"><Setter Property="Margin" Value="0,2,0,2"/></Style>
-  </Window.Resources>
+  </UserControl.Resources>
   <Grid Margin="18">
     <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
     <DockPanel Grid.Row="0" Margin="0,0,0,14">
@@ -33,4 +32,4 @@
     </Grid>
     <Grid Grid.Row="2" Margin="0,14,0,0"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBox Grid.Column="0" Padding="12" FontSize="18" Text="{Binding CoordinateText, UpdateSourceTrigger=PropertyChanged}"/><Button Grid.Column="1" Command="{Binding DecodeCommand}" Content="DECODE"/><Button Grid.Column="2" Command="{Binding CancelCommand}" Content="CANCEL"/><Button Grid.Column="3" Command="{Binding StartSearchCommand}" Content="START SEARCH"/><Button Grid.Column="4" Command="{Binding StopSearchCommand}" Content="STOP"/><Button Grid.Column="5" Command="{Binding ResetSearchCommand}" Content="RESET"/><Button Grid.Column="6" Command="{Binding ReconnectCommand}" Content="RECONNECT"/><TextBlock Grid.Column="0" VerticalAlignment="Bottom" Margin="4,-22,0,0" Foreground="#FF8E8E" Text="{Binding Error}"/></Grid>
   </Grid>
-</Window>
+</UserControl>

@@ -41,6 +41,12 @@ public sealed class BrainProcessHost : IBrainHost
 
     public Uri BaseAddress => _options.BaseAddress;
 
+    public bool EagerWholeDomain
+    {
+        get => _options.EagerWholeDomain;
+        set => _options.EagerWholeDomain = value;
+    }
+
     public IReadOnlyList<string> RecentLog
     {
         get

@@ -1,7 +1,7 @@
 using Topo.Core;
 using Topo.Training;
 
-namespace Topo.App.Services;
+namespace Topo.Module.Services;
 
 public interface IInteractiveSearchService
 {

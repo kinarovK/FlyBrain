@@ -1,4 +1,4 @@
-using Topo.App.Services;
+using Topo.Module.Services;
 using System.IO;
 using System.Net.Http;
 using FlyBrain.BrainClient;
@@ -6,7 +6,7 @@ using Topo.Core;
 using Topo.Training;
 using Xunit;
 
-namespace Topo.App.Tests;
+namespace Topo.Module.Tests;
 
 public sealed class InteractiveDecodeServiceIntegrationTests
 {

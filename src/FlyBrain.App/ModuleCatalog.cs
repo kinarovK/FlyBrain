@@ -1,6 +1,7 @@
 using FlyBrain.BrainClient;
 using FlyBrain.Modules;
 using Topo.Module;
+using Trader.Module;
 
 namespace FlyBrain.App;
 
@@ -13,5 +14,6 @@ public static class ModuleCatalog
     public static IReadOnlyList<IBrainModule> Create(IBrainServiceClient client, string? repositoryRoot) =>
     [
         new TopoModule(client),
+        new TraderModule(client, repositoryRoot),
     ];
 }

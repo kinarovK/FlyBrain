@@ -15,6 +15,7 @@
     <ProjectReference Include="..\FlyBrain.BrainHost\FlyBrain.BrainHost.csproj" />
     <ProjectReference Include="..\FlyBrain.Modules.Abstractions\FlyBrain.Modules.Abstractions.csproj" />
     <ProjectReference Include="..\Topo.Module\Topo.Module.csproj" />
+    <ProjectReference Include="..\Trader.Module\Trader.Module.csproj" />
   </ItemGroup>
 
   <ItemGroup>

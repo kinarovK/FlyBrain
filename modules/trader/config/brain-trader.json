@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "execution_mode": "reference",
+  "transmitter_mode": "unsigned",
+  "stimulus_amplitude": 100.0,
+  "stimulus_steps": 1,
+  "settle_steps": 22,
+  "input_selection": {
+    "strategy": "ascending-rank",
+    "first_rank": 15,
+    "require_spike": true,
+    "max_candidates": 120
+  },
+  "decision": {
+    "dead_zone_fraction": 0.1,
+    "spike_weight_mV": 1.0
+  }
+}

@@ -129,6 +129,19 @@ public sealed class BrainProcessHostTests : IDisposable
         Assert.Equal("1", info.Environment["FLYBRAIN_EAGER_WHOLE"]);
     }
 
+    [Fact]
+    public void Setup_check_reports_missing_python_and_brain_data()
+    {
+        var setup = new BrainSetup(Options(Path.Combine(_root, "missing", "python.exe")));
+
+        var checks = setup.Check();
+
+        Assert.True(checks.Single(c => c.Name == "FlyBrain repository").IsOk);
+        Assert.False(checks.Single(c => c.Name == "Python environment").IsOk);
+        Assert.False(checks.Single(c => c.Name == "FlyWire brain data").IsOk);
+        Assert.False(checks.Single(c => c.Name == "Trader market data").IsRequired);
+    }
+
     [Theory]
     [InlineData("{\"status\":\"ready\"}", "ready")]
     [InlineData("{\"status\":\"failed\",\"dataset\":null}", "failed")]

@@ -158,7 +158,7 @@ public sealed class BrainTests
         public Task<BrainStepResult> StepAsync(string sessionId, BrainStepRequest request, CancellationToken cancellationToken = default)
         {
             var spikes = 0;
-            foreach (var stimulus in request.Stimulus ?? [])
+            foreach (var stimulus in request.Stimulus ?? Array.Empty<BrainStimulus>())
             {
                 StimulusStepsSinceLastReset++;
                 spikes++;

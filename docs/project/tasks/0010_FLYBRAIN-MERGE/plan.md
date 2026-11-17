@@ -34,3 +34,9 @@ Decisions (approved by the user on 2026-11-17):
   amplitude 100, duration 1, settle 22, 128-root readout, frozen classifier).
 - No real-money trading, no exchange orders, no wallets, no live network calls
   from the brain. The connectome is fixed; any decision layer is external.
+
+## Status (2026-11-18)
+
+F0–F5 implemented on `staging` (feature branches merged with `--no-ff`).
+Not yet verified on Windows: `dotnet build/test`, the WPF app, a real brain
+start and the Trader brain backtest. The CI workflow runs on pull requests.

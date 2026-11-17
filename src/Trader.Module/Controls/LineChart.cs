@@ -57,7 +57,7 @@ public sealed class LineChart : FrameworkElement
         var dpi = VisualTreeHelper.GetDpi(this).PixelsPerDip;
         DrawText(context, Title, new Point(4, 2), 12, AxisBrush, dpi);
 
-        var series = Series?.Where(s => s.Values.Count > 1).ToArray() ?? [];
+        var series = Series?.Where(s => s.Values.Count > 1).ToArray() ?? Array.Empty<ChartSeries>();
         if (series.Length == 0 || width < 80 || height < 60)
         {
             DrawText(context, "No data", new Point(width / 2 - 20, height / 2 - 8), 12, AxisBrush, dpi);

@@ -40,6 +40,49 @@
       </DockPanel>
     </Border>
 
+    <Border DockPanel.Dock="Top" Background="#2A2412" Padding="16,8"
+            Visibility="{Binding IsSetupNeeded, Converter={StaticResource BoolToVisibility}}">
+      <DockPanel>
+        <ToggleButton DockPanel.Dock="Right" Padding="12,6" IsChecked="{Binding IsSetupPanelVisible}" Content="SETUP..."/>
+        <TextBlock VerticalAlignment="Center" Foreground="#F2C14E" Text="{Binding SetupSummary}"/>
+      </DockPanel>
+    </Border>
+
+    <Border DockPanel.Dock="Top" Background="#151E28" Padding="16,10"
+            Visibility="{Binding IsSetupPanelVisible, Converter={StaticResource BoolToVisibility}}">
+      <StackPanel>
+        <TextBlock FontWeight="SemiBold" Text="FIRST-RUN SETUP"/>
+        <ItemsControl Margin="0,6,0,6" ItemsSource="{Binding SetupChecks}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <StackPanel Orientation="Horizontal" Margin="0,2">
+                <TextBlock Width="22" FontWeight="Bold" Foreground="#5CDB95" Text="OK">
+                  <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                      <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsOk}" Value="False">
+                          <Setter Property="Text" Value="!"/>
+                          <Setter Property="Foreground" Value="#FF8E8E"/>
+                        </DataTrigger>
+                      </Style.Triggers>
+                    </Style>
+                  </TextBlock.Style>
+                </TextBlock>
+                <TextBlock Width="190" Text="{Binding Name}"/>
+                <TextBlock Foreground="#AAB7C5" Text="{Binding Detail}"/>
+              </StackPanel>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <StackPanel Orientation="Horizontal">
+          <Button Style="{StaticResource BrainButton}" Margin="0" Command="{Binding CreatePythonCommand}" Content="1. CREATE PYTHON ENVIRONMENT"/>
+          <Button Style="{StaticResource BrainButton}" Command="{Binding PrepareDataCommand}" Content="2. DOWNLOAD BRAIN DATA"/>
+          <Button Style="{StaticResource BrainButton}" Background="#3A4A5C" Command="{Binding RecheckCommand}" Content="RE-CHECK"/>
+          <Button Style="{StaticResource BrainButton}" Background="#B5523B" Command="{Binding CancelSetupCommand}" Content="CANCEL"/>
+        </StackPanel>
+      </StackPanel>
+    </Border>
+
     <Border DockPanel.Dock="Bottom" Background="#0F151C" Height="170"
             Visibility="{Binding IsLogVisible, Converter={StaticResource BoolToVisibility}}">
       <ListBox ItemsSource="{Binding LogLines}" Background="Transparent" BorderThickness="0" Foreground="#AAB7C5"

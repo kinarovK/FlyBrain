@@ -123,6 +123,64 @@ public sealed class ShellViewModelTests
         Assert.True(host.EagerWholeDomain);
     }
 
+    [Fact]
+    public async Task Missing_setup_opens_the_setup_panel_and_setup_rechecks_afterwards()
+    {
+        var setup = new FakeSetup();
+        var shell = new ShellViewModel(new FakeHost(), [new FakeModule("a")], setup: setup);
+
+        await shell.InitializeAsync();
+
+        Assert.True(shell.IsSetupNeeded);
+        Assert.True(shell.IsSetupPanelVisible);
+        Assert.Contains("Python environment", shell.SetupSummary);
+
+        await shell.CreatePythonEnvironmentAsync();
+
+        Assert.Equal(1, setup.CreateCalls);
+        Assert.False(shell.IsSetupNeeded);
+        Assert.False(shell.IsSetupRunning);
+    }
+
+    [Fact]
+    public async Task Brain_data_download_requires_confirmation()
+    {
+        var setup = new FakeSetup();
+        var shell = new ShellViewModel(new FakeHost(), [], setup: setup, confirm: _ => false);
+
+        await shell.PrepareBrainDataAsync();
+
+        Assert.Equal(0, setup.PrepareCalls);
+    }
+
+    private sealed class FakeSetup : IBrainSetup
+    {
+        private bool _pythonReady;
+
+        public int CreateCalls { get; private set; }
+
+        public int PrepareCalls { get; private set; }
+
+        public IReadOnlyList<SetupCheck> Check() =>
+        [
+            new SetupCheck("Python environment", _pythonReady, "test"),
+            new SetupCheck("Trader market data", false, "optional", IsRequired: false),
+        ];
+
+        public Task<bool> CreatePythonEnvironmentAsync(IProgress<string> log, CancellationToken cancellationToken = default)
+        {
+            CreateCalls++;
+            _pythonReady = true;
+            return Task.FromResult(true);
+        }
+
+        public Task<bool> PrepareBrainDataAsync(IProgress<string> log, CancellationToken cancellationToken = default)
+        {
+            PrepareCalls++;
+            return Task.FromResult(true);
+        }
+    }
+
     private sealed class FakeHost : IBrainHost
     {
         public bool FailStart { get; init; }

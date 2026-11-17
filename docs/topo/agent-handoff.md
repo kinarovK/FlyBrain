@@ -1,5 +1,11 @@
 # Topo engineering handoff
 
+> **FlyBrain note (2026-11-18):** Topo now lives in the FlyBrain repository as
+> `src/Topo.*` (UI: `Topo.Module`), artifacts under `modules/topo/`. The brain
+> is started by the FlyBrain app. "Do not modify FlyTrader" is superseded by
+> [ADR 0002](../project/adr/0002-flybrain-monorepo.md); the frozen scientific
+> contracts below still apply. Start with [FLYBRAIN_HANDOFF.md](../FLYBRAIN_HANDOFF.md).
+
 ## What this project is
 
 Topo is a .NET 9 WPF research sandbox for sending integer geographic

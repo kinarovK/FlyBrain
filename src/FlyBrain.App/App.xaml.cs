@@ -31,7 +31,13 @@ public partial class App : Application
         var client = new BrainServiceClient(httpClient);
         var modules = ModuleCatalog.Create(client, repositoryRoot);
 
-        var shell = new ShellViewModel(host, modules, action => Dispatcher.BeginInvoke(action));
+        var setup = new BrainSetup(hostOptions);
+        var shell = new ShellViewModel(
+            host,
+            modules,
+            action => Dispatcher.BeginInvoke(action),
+            setup,
+            question => MessageBox.Show(question, "FlyBrain setup", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes);
         var window = new MainWindow(shell);
         MainWindow = window;
         window.Show();

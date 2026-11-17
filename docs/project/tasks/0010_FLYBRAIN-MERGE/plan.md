@@ -37,6 +37,49 @@ Decisions (approved by the user on 2026-11-17):
 
 ## Status (2026-11-18)
 
-F0–F5 implemented on `staging` (feature branches merged with `--no-ff`).
-Not yet verified on Windows: `dotnet build/test`, the WPF app, a real brain
-start and the Trader brain backtest. The CI workflow runs on pull requests.
+F0–F5 implemented on `staging` (feature branches merged with `--no-ff`) and
+verified on Windows 11 / .NET 9 in branch `fix/verify-0010`. The CI workflow
+runs on pull requests.
+
+Verified:
+
+- `dotnet build FlyBrain.sln`: 0 warnings, 0 errors (full rebuild).
+- `dotnet test FlyBrain.sln`: 180 passed, 0 failed (guarded real-brain tests
+  return early without their `TOPO_*` / `FLYBRAIN_*` variables).
+- `pytest tests\python`: 45 passed.
+- Brain service: ready in ~3.5 s with the reference domain only (peak ~650 MB);
+  with `FLYBRAIN_EAGER_WHOLE=1` startup is ~5.2 s and peak ~1.3 GB, so the
+  whole domain is built only when requested.
+- GUI (driven via UI Automation): START BRAIN launches the service and shows
+  BRAIN ON (green); Topo decodes `N35 W54` (reward 1.000); switching to Trader
+  deletes the Topo session (`DELETE /api/v1/brain/sessions/...` 204) before
+  Trader creates its own; Trader loads 2024 data (8,784 candles, checksums
+  12/12, 8,039 tradable hours); RUN BACKTEST (ALL) fills the table; closing the
+  window leaves no `brain_service` Python process and frees port 8765.
+
+Trader 2024 backtest (reference/unsigned, default `brain-trader.json`,
+10,000 USDT, 0.1 % fee; deterministic across repeated runs). Inputs: 10 roots
+from rank 15; readout 451 BUY / 451 SELL neurons; 30 distinct market states
+(brain: 9 BUY, 1 SELL, 20 HOLD states).
+
+| Strategy | Final (USDT) | Return | Max DD | Trades | B/S/H signals |
+|---|---:|---:|---:|---:|---|
+| Fly brain | 19,431.70 | +94.32 % | 32.53 % | 55 | 2599/32/5408 |
+| Buy & hold | 22,266.45 | +122.66 % | 32.31 % | 1 | 1/0/8038 |
+| Momentum (trend token) | 9,201.43 | −7.99 % | 38.03 % | 253 | 2749/2191/3099 |
+| Random (seed 20260924) | 9,639.34 | −3.61 % | 31.30 % | 396 | 371/412/7256 |
+
+The BUY/SELL pools are an arbitrary mapping; these numbers are not evidence of
+market skill. Reproduce with `FLYBRAIN_RUN_TRADER_SMOKE=1` and a running brain:
+`dotnet test tests\dotnet\Trader.Tests --filter TraderBrainSmokeTests`.
+
+Fixed during verification: Trader view crashed the app on first display
+(read-only `Progress` bound TwoWay by `ProgressBar.Value`); two test bugs
+(BrainHost timeout test probe sequence, code-page-dependent subprocess
+decoding in a connectome bootstrap test).
+
+Still open / manual: REPLAY WITH THE FLY, the whole-brain checkbox from the
+GUI, first-run setup buttons (create venv / download data) on a fresh clone,
+and the Topo Phase 9 benchmark and whole-brain validation scripts (not run).
+In each evaluation the brain produces exactly 3 spikes (the input pulses), so
+the readout difference is subthreshold membrane response only.

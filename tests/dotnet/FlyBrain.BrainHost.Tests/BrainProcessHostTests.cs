@@ -98,7 +98,7 @@ public sealed class BrainProcessHostTests : IDisposable
                 PollInterval = TimeSpan.FromMilliseconds(1),
                 StartupTimeout = TimeSpan.FromMilliseconds(30),
             },
-            new FakeProbe(ProbeOutcome.Starting),
+            new FakeProbe(ProbeOutcome.Unreachable, ProbeOutcome.Starting),
             launcher);
 
         var status = await host.StartAsync();

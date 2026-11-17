@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -13,6 +14,8 @@ import pytest
 ROOT = Path(__file__).resolve().parents[2]
 SCRIPTS = ROOT / "scripts"
 sys.path.insert(0, str(SCRIPTS))
+# Child scripts print non-ASCII text; pin both ends to UTF-8 so the result does not depend on the Windows code page.
+_UTF8_ENV = {**os.environ, "PYTHONIOENCODING": "utf-8"}
 
 from flywire_data import (  # noqa: E402
     ANNOTATIONS,
@@ -137,6 +140,8 @@ def test_mock_brain_requires_explicit_flag_and_is_not_flywire(tmp_path: Path) ->
         check=False,
         capture_output=True,
         text=True,
+        encoding="utf-8",
+        env=_UTF8_ENV,
     )
     assert completed.returncode == 0
     assert "MOCK — NOT FLYWIRE" in completed.stdout
@@ -148,6 +153,8 @@ def test_download_refuses_without_principles_acknowledgement(tmp_path: Path) -> 
         check=False,
         capture_output=True,
         text=True,
+        encoding="utf-8",
+        env=_UTF8_ENV,
     )
     assert completed.returncode == 2
     assert "FlyWire principles" in completed.stderr

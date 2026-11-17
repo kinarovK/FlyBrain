@@ -1,12 +1,12 @@
-using Topo.App.Services;
-using Topo.App.ViewModels;
+using Topo.Module.Services;
+using Topo.Module.ViewModels;
 using FlyBrain.BrainClient;
 using Topo.Core;
 using Topo.Training;
 using System.Net;
 using Xunit;
 
-namespace Topo.App.Tests;
+namespace Topo.Module.Tests;
 
 public sealed class MainViewModelTests
 {

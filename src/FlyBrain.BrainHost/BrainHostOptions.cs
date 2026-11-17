@@ -13,7 +13,7 @@ public sealed class BrainHostOptions
     public Uri BaseAddress { get; init; } = new("http://127.0.0.1:8765");
 
     /// <summary>Prepare the full 139,255-neuron domain at startup (slower, ~1.4 GB).</summary>
-    public bool EagerWholeDomain { get; init; }
+    public bool EagerWholeDomain { get; set; }
 
     public TimeSpan StartupTimeout { get; init; } = TimeSpan.FromMinutes(10);
 

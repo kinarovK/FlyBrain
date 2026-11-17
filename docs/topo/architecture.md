@@ -8,7 +8,7 @@ Topo owns application state and future external training state. Brain Service
 session state remains external and transient.
 
 ```text
-Topo.App
+Topo.Module
    |
    +--------------> Topo.BrainClient
    |

@@ -2,16 +2,16 @@ using System.IO;
 using System.Text.Json;
 using System.Windows;
 using Microsoft.Web.WebView2.Core;
-using Topo.App.ViewModels;
+using Topo.Module.ViewModels;
 using Topo.Core;
 
-namespace Topo.App;
+namespace Topo.Module;
 
-public partial class MainWindow : Window
+public partial class TopoView : System.Windows.Controls.UserControl
 {
     private readonly MainViewModel _viewModel;
 
-    public MainWindow(MainViewModel viewModel)
+    public TopoView(MainViewModel viewModel)
     {
         _viewModel = viewModel; InitializeComponent(); DataContext = viewModel;
         Loaded += async (_, _) => await InitializeMapAsync();
@@ -21,8 +21,12 @@ public partial class MainWindow : Window
         };
     }
 
+    private bool _mapInitialized;
+
     private async Task InitializeMapAsync()
     {
+        if (_mapInitialized) return;
+        _mapInitialized = true;
         try
         {
             await MapView.EnsureCoreWebView2Async();

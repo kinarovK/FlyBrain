@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Topo.App.ViewModels;
+namespace Topo.Module.ViewModels;
 
 public abstract class ObservableObject : INotifyPropertyChanged
 {

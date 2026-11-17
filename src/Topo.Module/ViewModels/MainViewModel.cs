@@ -1,11 +1,11 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Topo.App.Services;
+using Topo.Module.Services;
 using FlyBrain.BrainClient;
 using Topo.Core;
 using Topo.Training;
 
-namespace Topo.App.ViewModels;
+namespace Topo.Module.ViewModels;
 
 public enum ApplicationMode { NeuralDecode, AutonomousSearch }
 
@@ -53,6 +53,9 @@ public sealed class MainViewModel : ObservableObject
     public ObservableCollection<TokenProgressItem> Tokens { get; } = []; public ObservableCollection<SearchHistoryItem> SearchHistory { get; } = []; public ObservableCollection<GeoCoordinate> SearchTrail { get; } = [];
     public ICommand DecodeCommand { get; } public ICommand CancelCommand { get; } public ICommand ReconnectCommand { get; } public ICommand StartSearchCommand { get; } public ICommand StopSearchCommand { get; } public ICommand ResetSearchCommand { get; } public ICommand NeuralDecodeModeCommand { get; } public ICommand AutonomousSearchModeCommand { get; }
     public async Task InitializeAsync() => await ConnectAsync(); public Task DecodeForTestAsync() => DecodeAsync(); public Task StartSearchForTestAsync() => StartSearchAsync(); public Task ReconnectForTestAsync() => ConnectAsync(); public Task ResetSearchForTestAsync() => ResetSearchAsync(); public Task SetSearchModeForTestAsync() => SetModeAsync(ApplicationMode.AutonomousSearch); public Task SetDecodeModeForTestAsync() => SetModeAsync(ApplicationMode.NeuralDecode);
+    public bool IsBusy => _isRunning;
+    public void CancelRunningOperation() => _cancellation?.Cancel();
+    public void SetBrainOffline(string detail) { CancelRunningOperation(); BrainState = "OFFLINE"; BrainDetail = detail; AddLog(detail); }
     public void SelectMapCoordinate(double latitude, double longitude) { var coordinate = MapCoordinateConverter.ToTopoCoordinate(latitude, longitude); CoordinateText = coordinate.ToString(); Target = coordinate.ToString(); Error = ""; AddLog($"Map selected {latitude:F3}, {longitude:F3} → {coordinate}"); }
 
     private Task SetModeAsync(ApplicationMode mode) { ApplicationMode = mode; Error = ""; AddLog(mode == ApplicationMode.NeuralDecode ? "Neural Decode Mode selected" : "Autonomous Search Mode selected"); return Task.CompletedTask; }

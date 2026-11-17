@@ -13,6 +13,9 @@ public interface IBrainHost : IAsyncDisposable
 
     IReadOnlyList<string> RecentLog { get; }
 
+    /// <summary>Prepare the whole 139,255-neuron domain at the next start.</summary>
+    bool EagerWholeDomain { get; set; }
+
     event EventHandler<BrainHostStatus>? StatusChanged;
 
     event EventHandler<string>? LogReceived;

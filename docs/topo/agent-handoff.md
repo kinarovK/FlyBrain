@@ -42,7 +42,7 @@ The WPF app has two modes:
 | `src/Topo.Core` | Pure coordinate/token semantics, map rounding, and the deterministic reward formula. No dependencies. |
 | `src/Topo.BrainClient` | Public Brain Service HTTP DTOs/client/options/errors. No WPF or policy logic. |
 | `src/Topo.Training` | Encoder, stimulation/readout, frozen decode pipeline, classifier/preprocessing, owned-session service, Phase 9 policies, experiment persistence. No WPF dependency. |
-| `src/Topo.App` | WPF/WebView2/Leaflet UI, ViewModels, app-specific services, commands, map bridge. |
+| `src/Topo.Module` | WPF/WebView2/Leaflet UI, ViewModels, app-specific services, commands, map bridge. |
 | `src/Topo.Experiments` | Non-WPF console runner for long Phase 9 real-service experiments; reuses production training/session/search components. |
 | `tests/*` | Unit, ViewModel, HTTP client, guarded real-service smoke/integration tests. |
 
@@ -55,8 +55,8 @@ Key files:
   target-owning runner.
 - `src/Topo.Training/AutonomousSearchExperiments.cs`: deterministic corpus,
   checkpoints/resume, metrics, and artifact serialization.
-- `src/Topo.App/ViewModels/MainViewModel.cs`: dashboard state and mode controls.
-- `src/Topo.App/Assets/Map/index.html`: Leaflet bridge and marker/trail UI.
+- `src/Topo.Module/ViewModels/MainViewModel.cs`: dashboard state and mode controls.
+- `src/Topo.Module/Assets/Map/index.html`: Leaflet bridge and marker/trail UI.
 - `config/brain-channels.json`, `config/readout-population.json`, and
   `data/models/token-readout-v1.json`: frozen runtime artifacts.
 
@@ -149,7 +149,7 @@ Invoke-WebRequest http://127.0.0.1:8765/health/ready
 Run the desktop app from Visual Studio or:
 
 ```powershell
-dotnet run --project D:\AI\Topo\src\Topo.App\Topo.App.csproj
+dotnet run --project D:\AI\Topo\src\Topo.Module\Topo.Module.csproj
 ```
 
 Run/resume the fixed Phase 9 benchmark (it can take roughly 1.5 hours against
@@ -169,7 +169,7 @@ records before resuming. Completed target artifacts are not re-evaluated.
 2. Create the next task specification/design/plan and obtain approval before
    changing frozen scientific contracts or adding learning behavior.
 3. Keep domain/training behavior in `Topo.Core`/`Topo.Training`; keep HTTP in
-   `Topo.BrainClient`; keep only presentation/command logic in `Topo.App`.
+   `Topo.BrainClient`; keep only presentation/command logic in `Topo.Module`.
 4. Add deterministic unit tests beside the changed layer. Keep real Brain
    Service tests guarded; do not put multi-hour benchmarks in VSTest.
 5. Preserve offline WPF startup, async UI behavior, cancellation propagation,

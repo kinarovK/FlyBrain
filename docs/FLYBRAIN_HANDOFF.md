@@ -73,6 +73,14 @@ dotnet run --project src\FlyBrain.App          # GUI
 dotnet run --project src\Topo.Experiments      # long Topo Phase 9 benchmark (brain must be running)
 ```
 
+Sprint gate (task 0011 onwards): `.\scripts\gate.ps1 -Sprint <id>` builds with
+warnings as errors, runs all .NET and Python tests, starts a fresh brain, runs
+every real-brain test sequentially with `FLYBRAIN_REAL=1` (including the frozen
+Topo/Trader fingerprints in `tests/golden/`), stops the brain, checks that no
+process is left and writes `docs/project/tasks/<task>/gates/<id>.md`.
+`-NoReal` runs only the fast part; `-DryRun` lists the steps; `-RecordGolden`
+re-records the fingerprints. Linux/CI fast part: `scripts/gate.sh`.
+
 Guarded real-brain tests: see `docs/topo/agent-handoff.md` (`TOPO_*` variables)
 and the FlyTrader real-data scripts in `docs/PROJECT_HANDOFF.md`.
 
@@ -84,6 +92,8 @@ and the FlyTrader real-data scripts in `docs/PROJECT_HANDOFF.md`.
 | `FLYBRAIN_PYTHON` | Python interpreter for the brain (default `.venv\Scripts\python.exe`). |
 | `FLYBRAIN_BRAIN_SERVICE_URL` | Brain service address (default `http://127.0.0.1:8765`). `TOPO_BRAIN_SERVICE_URL` still works. |
 | `FLYBRAIN_EAGER_WHOLE` | `1` prepares the whole domain at service start. |
+| `FLYBRAIN_REAL` | `1` enables every real-brain test (set by the gate). Long experiments keep their own `TOPO_RUN_*_EXPERIMENT` variables. |
+| `FLYBRAIN_RECORD_GOLDEN` | `1` re-records `tests/golden/*` instead of comparing. |
 | `FLYBRAIN_AUTOSTART` | `1` starts the brain when the app opens (same as `--start-brain`). |
 
 ## Superseded rules

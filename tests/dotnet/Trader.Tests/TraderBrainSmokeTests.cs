@@ -18,7 +18,7 @@ public sealed class TraderBrainSmokeTests(ITestOutputHelper output)
     [Trait("Category", "Integration")]
     public async Task Brain_and_baselines_complete_the_2024_backtest()
     {
-        if (!string.Equals(Environment.GetEnvironmentVariable("FLYBRAIN_RUN_TRADER_SMOKE"), "1", StringComparison.Ordinal))
+        if (!FlyBrain.TestSupport.RealBrainGate.IsEnabled("FLYBRAIN_RUN_TRADER_SMOKE"))
         {
             return;
         }

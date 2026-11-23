@@ -10,10 +10,7 @@ public sealed class BrainServiceIntegrationSmokeTests
     [Trait("Category", "Integration")]
     public async Task ReferenceSessionLifecycleSucceeds()
     {
-        if (!string.Equals(
-                Environment.GetEnvironmentVariable("TOPO_RUN_BRAIN_SERVICE_SMOKE"),
-                "1",
-                StringComparison.Ordinal))
+        if (!FlyBrain.TestSupport.RealBrainGate.IsEnabled("TOPO_RUN_BRAIN_SERVICE_SMOKE"))
         {
             return;
         }

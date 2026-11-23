@@ -14,7 +14,7 @@ public sealed class InputStimulationCalibrationIntegrationTests(ITestOutputHelpe
     [Trait("Category", "Integration")]
     public async Task AllConfiguredChannels_RunTheConservativeAmplitudeSweep()
     {
-        if (!string.Equals(Environment.GetEnvironmentVariable("TOPO_RUN_BRAIN_SERVICE_SMOKE"), "1", StringComparison.Ordinal))
+        if (!FlyBrain.TestSupport.RealBrainGate.IsEnabled("TOPO_RUN_BRAIN_SERVICE_SMOKE"))
         {
             return;
         }
@@ -66,7 +66,7 @@ public sealed class InputStimulationCalibrationIntegrationTests(ITestOutputHelpe
     [Trait("Category", "Integration")]
     public async Task AllConfiguredChannels_RunTheTimingSweepAtTheLowestActiveAmplitude()
     {
-        if (!string.Equals(Environment.GetEnvironmentVariable("TOPO_RUN_BRAIN_SERVICE_SMOKE"), "1", StringComparison.Ordinal))
+        if (!FlyBrain.TestSupport.RealBrainGate.IsEnabled("TOPO_RUN_BRAIN_SERVICE_SMOKE"))
         {
             return;
         }
@@ -116,7 +116,7 @@ public sealed class InputStimulationCalibrationIntegrationTests(ITestOutputHelpe
     [Trait("Category", "Integration")]
     public async Task ChosenWeakConfiguration_ReplaysExactlyAfterReset()
     {
-        if (!string.Equals(Environment.GetEnvironmentVariable("TOPO_RUN_BRAIN_SERVICE_SMOKE"), "1", StringComparison.Ordinal))
+        if (!FlyBrain.TestSupport.RealBrainGate.IsEnabled("TOPO_RUN_BRAIN_SERVICE_SMOKE"))
         {
             return;
         }
@@ -165,7 +165,7 @@ public sealed class InputStimulationCalibrationIntegrationTests(ITestOutputHelpe
     [Trait("Category", "Integration")]
     public async Task RepresentativeChannels_RunTheRepeatGapAndDiagnosticSweep()
     {
-        if (!string.Equals(Environment.GetEnvironmentVariable("TOPO_RUN_BRAIN_SERVICE_SMOKE"), "1", StringComparison.Ordinal))
+        if (!FlyBrain.TestSupport.RealBrainGate.IsEnabled("TOPO_RUN_BRAIN_SERVICE_SMOKE"))
         {
             return;
         }
@@ -218,7 +218,7 @@ public sealed class InputStimulationCalibrationIntegrationTests(ITestOutputHelpe
     [Trait("Category", "Integration")]
     public async Task MinimumRepeatGap_ReplaysExactlyThreeTimes()
     {
-        if (!string.Equals(Environment.GetEnvironmentVariable("TOPO_RUN_BRAIN_SERVICE_SMOKE"), "1", StringComparison.Ordinal))
+        if (!FlyBrain.TestSupport.RealBrainGate.IsEnabled("TOPO_RUN_BRAIN_SERVICE_SMOKE"))
         {
             return;
         }

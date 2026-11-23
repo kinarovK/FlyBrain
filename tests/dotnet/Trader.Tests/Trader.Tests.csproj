@@ -25,4 +25,7 @@
   <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FlyBrain.TestSupport\FlyBrain.TestSupport.csproj" />
+  </ItemGroup>
 </Project>

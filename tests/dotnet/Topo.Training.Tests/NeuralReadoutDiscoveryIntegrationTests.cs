@@ -14,7 +14,7 @@ public sealed class NeuralReadoutDiscoveryIntegrationTests(ITestOutputHelper out
     [Trait("Category", "Integration")]
     public async Task ReferenceDomainDiscovery_ExcludesInputsAndSurveysEveryToken()
     {
-        if (!string.Equals(Environment.GetEnvironmentVariable("TOPO_RUN_BRAIN_SERVICE_SMOKE"), "1", StringComparison.Ordinal))
+        if (!FlyBrain.TestSupport.RealBrainGate.IsEnabled("TOPO_RUN_BRAIN_SERVICE_SMOKE"))
         {
             return;
         }
@@ -120,7 +120,7 @@ public sealed class NeuralReadoutDiscoveryIntegrationTests(ITestOutputHelper out
     [Trait("Category", "Integration")]
     public async Task N35W54_ProducesAnOrderedReadoutFeatureSequenceWithoutExtraSettleSteps()
     {
-        if (!string.Equals(Environment.GetEnvironmentVariable("TOPO_RUN_BRAIN_SERVICE_SMOKE"), "1", StringComparison.Ordinal))
+        if (!FlyBrain.TestSupport.RealBrainGate.IsEnabled("TOPO_RUN_BRAIN_SERVICE_SMOKE"))
         {
             return;
         }

@@ -14,13 +14,12 @@ public sealed class InputStimulationCalibrationIntegrationTests(ITestOutputHelpe
     [Trait("Category", "Integration")]
     public async Task AllConfiguredChannels_RunTheConservativeAmplitudeSweep()
     {
-        if (!string.Equals(Environment.GetEnvironmentVariable("TOPO_RUN_BRAIN_SERVICE_SMOKE"), "1", StringComparison.Ordinal))
+        if (!FlyBrain.TestSupport.RealBrainGate.IsEnabled("TOPO_RUN_BRAIN_SERVICE_SMOKE"))
         {
             return;
         }
 
-        var configurationPath = Environment.GetEnvironmentVariable("TOPO_BRAIN_CHANNELS_PATH")
-            ?? throw new InvalidOperationException("TOPO_BRAIN_CHANNELS_PATH is required for integration calibration.");
+        var configurationPath = FlyBrain.TestSupport.RepositoryFiles.TopoChannels;
         var configuration = BrainChannelConfiguration.LoadFromFile(configurationPath);
         using var httpClient = new HttpClient { BaseAddress = BrainServiceClientOptions.FromEnvironment().BaseAddress };
         var client = new BrainServiceClient(httpClient);
@@ -66,7 +65,7 @@ public sealed class InputStimulationCalibrationIntegrationTests(ITestOutputHelpe
     [Trait("Category", "Integration")]
     public async Task AllConfiguredChannels_RunTheTimingSweepAtTheLowestActiveAmplitude()
     {
-        if (!string.Equals(Environment.GetEnvironmentVariable("TOPO_RUN_BRAIN_SERVICE_SMOKE"), "1", StringComparison.Ordinal))
+        if (!FlyBrain.TestSupport.RealBrainGate.IsEnabled("TOPO_RUN_BRAIN_SERVICE_SMOKE"))
         {
             return;
         }
@@ -116,7 +115,7 @@ public sealed class InputStimulationCalibrationIntegrationTests(ITestOutputHelpe
     [Trait("Category", "Integration")]
     public async Task ChosenWeakConfiguration_ReplaysExactlyAfterReset()
     {
-        if (!string.Equals(Environment.GetEnvironmentVariable("TOPO_RUN_BRAIN_SERVICE_SMOKE"), "1", StringComparison.Ordinal))
+        if (!FlyBrain.TestSupport.RealBrainGate.IsEnabled("TOPO_RUN_BRAIN_SERVICE_SMOKE"))
         {
             return;
         }
@@ -165,7 +164,7 @@ public sealed class InputStimulationCalibrationIntegrationTests(ITestOutputHelpe
     [Trait("Category", "Integration")]
     public async Task RepresentativeChannels_RunTheRepeatGapAndDiagnosticSweep()
     {
-        if (!string.Equals(Environment.GetEnvironmentVariable("TOPO_RUN_BRAIN_SERVICE_SMOKE"), "1", StringComparison.Ordinal))
+        if (!FlyBrain.TestSupport.RealBrainGate.IsEnabled("TOPO_RUN_BRAIN_SERVICE_SMOKE"))
         {
             return;
         }
@@ -218,7 +217,7 @@ public sealed class InputStimulationCalibrationIntegrationTests(ITestOutputHelpe
     [Trait("Category", "Integration")]
     public async Task MinimumRepeatGap_ReplaysExactlyThreeTimes()
     {
-        if (!string.Equals(Environment.GetEnvironmentVariable("TOPO_RUN_BRAIN_SERVICE_SMOKE"), "1", StringComparison.Ordinal))
+        if (!FlyBrain.TestSupport.RealBrainGate.IsEnabled("TOPO_RUN_BRAIN_SERVICE_SMOKE"))
         {
             return;
         }
@@ -264,8 +263,7 @@ public sealed class InputStimulationCalibrationIntegrationTests(ITestOutputHelpe
 
     private static BrainChannelConfiguration LoadConfiguration()
     {
-        var configurationPath = Environment.GetEnvironmentVariable("TOPO_BRAIN_CHANNELS_PATH")
-            ?? throw new InvalidOperationException("TOPO_BRAIN_CHANNELS_PATH is required for integration calibration.");
+        var configurationPath = FlyBrain.TestSupport.RepositoryFiles.TopoChannels;
         return BrainChannelConfiguration.LoadFromFile(configurationPath);
     }
 

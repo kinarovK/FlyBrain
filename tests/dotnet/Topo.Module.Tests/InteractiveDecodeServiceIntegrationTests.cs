@@ -14,7 +14,7 @@ public sealed class InteractiveDecodeServiceIntegrationTests
     [Trait("Category", "Integration")]
     public async Task FrozenInteractiveService_DecodesRequiredSmokeCoordinates()
     {
-        if (!string.Equals(Environment.GetEnvironmentVariable("TOPO_RUN_UI_SMOKE"), "1", StringComparison.Ordinal)) return;
+        if (!FlyBrain.TestSupport.RealBrainGate.IsEnabled("TOPO_RUN_UI_SMOKE")) return;
         using var http = new HttpClient { BaseAddress = BrainServiceClientOptions.FromEnvironment().BaseAddress };
         await using var service = new InteractiveDecodeService(new BrainServiceClient(http));
         var status = await service.ConnectAsync();
@@ -22,9 +22,11 @@ public sealed class InteractiveDecodeServiceIntegrationTests
 
         foreach (var text in new[] { "N35 W54", "N47 E22", "S23 E117" })
         {
-            var progress = new List<CoordinateDecodeProgress>();
+            // Synchronous collector: Progress<T> posts reports asynchronously, so the
+            // last one could still be pending when DecodeAsync returns.
+            var progress = new FlyBrain.TestSupport.ProgressCollector<CoordinateDecodeProgress>();
             var source = GeoCoordinate.Parse(text);
-            var result = await service.DecodeAsync(source, new Progress<CoordinateDecodeProgress>(progress.Add));
+            var result = await service.DecodeAsync(source, progress);
             Assert.True(result.Decoding.IsSuccess);
             Assert.Equal(source, result.Decoding.Coordinate);
             Assert.Equal(source.ToTokens().Count * 3, progress.Count);
@@ -35,7 +37,7 @@ public sealed class InteractiveDecodeServiceIntegrationTests
     [Fact]
     public async Task FrozenInteractiveService_ProducesRequiredAutonomousSearchTraces()
     {
-        if (!string.Equals(Environment.GetEnvironmentVariable("TOPO_RUN_UI_SMOKE"), "1", StringComparison.Ordinal)) return;
+        if (!FlyBrain.TestSupport.RealBrainGate.IsEnabled("TOPO_RUN_UI_SMOKE")) return;
         using var httpClient = new HttpClient { BaseAddress = BrainServiceClientOptions.FromEnvironment().BaseAddress };
         var client = new BrainServiceClient(httpClient);
         await using var decoder = new InteractiveDecodeService(client);

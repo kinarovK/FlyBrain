@@ -18,4 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\FlyBrain.BrainClient\FlyBrain.BrainClient.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FlyBrain.TestSupport\FlyBrain.TestSupport.csproj" />
+  </ItemGroup>
 </Project>

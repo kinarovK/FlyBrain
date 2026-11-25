@@ -14,13 +14,12 @@ public sealed class CoordinateStimulationIntegrationSmokeTests(ITestOutputHelper
     [Trait("Category", "Integration")]
     public async Task N35W54_ExecutesACompleteReferenceSessionSequence()
     {
-        if (!string.Equals(Environment.GetEnvironmentVariable("TOPO_RUN_BRAIN_SERVICE_SMOKE"), "1", StringComparison.Ordinal))
+        if (!FlyBrain.TestSupport.RealBrainGate.IsEnabled("TOPO_RUN_BRAIN_SERVICE_SMOKE"))
         {
             return;
         }
 
-        var configurationPath = Environment.GetEnvironmentVariable("TOPO_BRAIN_CHANNELS_PATH")
-            ?? throw new InvalidOperationException("TOPO_BRAIN_CHANNELS_PATH is required for the integration smoke test.");
+        var configurationPath = FlyBrain.TestSupport.RepositoryFiles.TopoChannels;
         var configuration = BrainChannelConfiguration.LoadFromFile(configurationPath);
         var options = BrainServiceClientOptions.FromEnvironment();
         using var httpClient = new HttpClient { BaseAddress = options.BaseAddress };
@@ -81,13 +80,12 @@ public sealed class CoordinateStimulationIntegrationSmokeTests(ITestOutputHelper
     [Trait("Category", "Integration")]
     public async Task RepeatedDigitCoordinates_ProduceAnInputSpikeForEveryTokenPresentation()
     {
-        if (!string.Equals(Environment.GetEnvironmentVariable("TOPO_RUN_BRAIN_SERVICE_SMOKE"), "1", StringComparison.Ordinal))
+        if (!FlyBrain.TestSupport.RealBrainGate.IsEnabled("TOPO_RUN_BRAIN_SERVICE_SMOKE"))
         {
             return;
         }
 
-        var configurationPath = Environment.GetEnvironmentVariable("TOPO_BRAIN_CHANNELS_PATH")
-            ?? throw new InvalidOperationException("TOPO_BRAIN_CHANNELS_PATH is required for the integration smoke test.");
+        var configurationPath = FlyBrain.TestSupport.RepositoryFiles.TopoChannels;
         var configuration = BrainChannelConfiguration.LoadFromFile(configurationPath);
         using var httpClient = new HttpClient { BaseAddress = BrainServiceClientOptions.FromEnvironment().BaseAddress };
         var client = new BrainServiceClient(httpClient);

@@ -22,9 +22,11 @@ public sealed class InteractiveDecodeServiceIntegrationTests
 
         foreach (var text in new[] { "N35 W54", "N47 E22", "S23 E117" })
         {
-            var progress = new List<CoordinateDecodeProgress>();
+            // Synchronous collector: Progress<T> posts reports asynchronously, so the
+            // last one could still be pending when DecodeAsync returns.
+            var progress = new FlyBrain.TestSupport.ProgressCollector<CoordinateDecodeProgress>();
             var source = GeoCoordinate.Parse(text);
-            var result = await service.DecodeAsync(source, new Progress<CoordinateDecodeProgress>(progress.Add));
+            var result = await service.DecodeAsync(source, progress);
             Assert.True(result.Decoding.IsSuccess);
             Assert.Equal(source, result.Decoding.Coordinate);
             Assert.Equal(source.ToTokens().Count * 3, progress.Count);

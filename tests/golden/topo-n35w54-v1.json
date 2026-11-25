@@ -1,0 +1,48 @@
+{
+  "Source": "N35 W54",
+  "Decoded": "N35 W54",
+  "Tokens": [
+    {
+      "Index": 0,
+      "Token": "North",
+      "Confidence": 0.9959730308,
+      "SimulationStep": 23
+    },
+    {
+      "Index": 1,
+      "Token": "Digit3",
+      "Confidence": 0.9980125294,
+      "SimulationStep": 46
+    },
+    {
+      "Index": 2,
+      "Token": "Digit5",
+      "Confidence": 0.9710995314,
+      "SimulationStep": 69
+    },
+    {
+      "Index": 3,
+      "Token": "Separator",
+      "Confidence": 0.9993968372,
+      "SimulationStep": 92
+    },
+    {
+      "Index": 4,
+      "Token": "West",
+      "Confidence": 0.997315648,
+      "SimulationStep": 115
+    },
+    {
+      "Index": 5,
+      "Token": "Digit5",
+      "Confidence": 0.9969065454,
+      "SimulationStep": 138
+    },
+    {
+      "Index": 6,
+      "Token": "Digit4",
+      "Confidence": 0.9982805124,
+      "SimulationStep": 161
+    }
+  ]
+}

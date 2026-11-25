@@ -1,0 +1,198 @@
+{
+  "InputRoots": {
+    "ReturnStrongDown": 720575940605391136,
+    "ReturnDown": 720575940605400096,
+    "ReturnFlat": 720575940605410592,
+    "ReturnUp": 720575940605686886,
+    "ReturnStrongUp": 720575940605688608,
+    "TrendDown": 720575940605758142,
+    "TrendFlat": 720575940605842656,
+    "TrendUp": 720575940605883569,
+    "VolatilityLow": 720575940605947569,
+    "VolatilityHigh": 720575940606056905
+  },
+  "BuyPool": 451,
+  "SellPool": 451,
+  "States": [
+    {
+      "Tokens": "R-- T- Vlo",
+      "Action": "Hold",
+      "BuyScore": 0.0871336616,
+      "SellScore": 0.0904228466
+    },
+    {
+      "Tokens": "R-- T- Vhi",
+      "Action": "Hold",
+      "BuyScore": 0.1251112421,
+      "SellScore": 0.1201541373
+    },
+    {
+      "Tokens": "R-- T0 Vlo",
+      "Action": "Hold",
+      "BuyScore": 0.0285637035,
+      "SellScore": 0.0275192
+    },
+    {
+      "Tokens": "R-- T0 Vhi",
+      "Action": "Buy",
+      "BuyScore": 0.066541284,
+      "SellScore": 0.0572504908
+    },
+    {
+      "Tokens": "R-- T\u002B Vlo",
+      "Action": "Sell",
+      "BuyScore": 0.0386600312,
+      "SellScore": 0.0430557348
+    },
+    {
+      "Tokens": "R-- T\u002B Vhi",
+      "Action": "Hold",
+      "BuyScore": 0.0766376117,
+      "SellScore": 0.0727870256
+    },
+    {
+      "Tokens": "R- T- Vlo",
+      "Action": "Hold",
+      "BuyScore": 0.1062328289,
+      "SellScore": 0.1098142937
+    },
+    {
+      "Tokens": "R- T- Vhi",
+      "Action": "Hold",
+      "BuyScore": 0.1442104094,
+      "SellScore": 0.1395455845
+    },
+    {
+      "Tokens": "R- T0 Vlo",
+      "Action": "Hold",
+      "BuyScore": 0.0476628708,
+      "SellScore": 0.0469106472
+    },
+    {
+      "Tokens": "R- T0 Vhi",
+      "Action": "Buy",
+      "BuyScore": 0.0856404514,
+      "SellScore": 0.076641938
+    },
+    {
+      "Tokens": "R- T\u002B Vlo",
+      "Action": "Hold",
+      "BuyScore": 0.0577591985,
+      "SellScore": 0.062447182
+    },
+    {
+      "Tokens": "R- T\u002B Vhi",
+      "Action": "Hold",
+      "BuyScore": 0.095736779,
+      "SellScore": 0.0921784728
+    },
+    {
+      "Tokens": "R0 T- Vlo",
+      "Action": "Hold",
+      "BuyScore": 0.0864790555,
+      "SellScore": 0.0874995671
+    },
+    {
+      "Tokens": "R0 T- Vhi",
+      "Action": "Hold",
+      "BuyScore": 0.1244566361,
+      "SellScore": 0.1172308579
+    },
+    {
+      "Tokens": "R0 T0 Vlo",
+      "Action": "Buy",
+      "BuyScore": 0.0279090975,
+      "SellScore": 0.0245959206
+    },
+    {
+      "Tokens": "R0 T0 Vhi",
+      "Action": "Buy",
+      "BuyScore": 0.065886678,
+      "SellScore": 0.0543272114
+    },
+    {
+      "Tokens": "R0 T\u002B Vlo",
+      "Action": "Hold",
+      "BuyScore": 0.0380054251,
+      "SellScore": 0.0401324554
+    },
+    {
+      "Tokens": "R0 T\u002B Vhi",
+      "Action": "Hold",
+      "BuyScore": 0.0759830057,
+      "SellScore": 0.0698637462
+    },
+    {
+      "Tokens": "R\u002B T- Vlo",
+      "Action": "Hold",
+      "BuyScore": 0.0883838224,
+      "SellScore": 0.0888528944
+    },
+    {
+      "Tokens": "R\u002B T- Vhi",
+      "Action": "Hold",
+      "BuyScore": 0.126361403,
+      "SellScore": 0.1185841852
+    },
+    {
+      "Tokens": "R\u002B T0 Vlo",
+      "Action": "Buy",
+      "BuyScore": 0.0298138644,
+      "SellScore": 0.0259492478
+    },
+    {
+      "Tokens": "R\u002B T0 Vhi",
+      "Action": "Buy",
+      "BuyScore": 0.0677914449,
+      "SellScore": 0.0556805386
+    },
+    {
+      "Tokens": "R\u002B T\u002B Vlo",
+      "Action": "Hold",
+      "BuyScore": 0.039910192,
+      "SellScore": 0.0414857826
+    },
+    {
+      "Tokens": "R\u002B T\u002B Vhi",
+      "Action": "Hold",
+      "BuyScore": 0.0778877726,
+      "SellScore": 0.0712170734
+    },
+    {
+      "Tokens": "R\u002B\u002B T- Vlo",
+      "Action": "Hold",
+      "BuyScore": 0.0967526164,
+      "SellScore": 0.0943979019
+    },
+    {
+      "Tokens": "R\u002B\u002B T- Vhi",
+      "Action": "Hold",
+      "BuyScore": 0.1347301969,
+      "SellScore": 0.1241291927
+    },
+    {
+      "Tokens": "R\u002B\u002B T0 Vlo",
+      "Action": "Buy",
+      "BuyScore": 0.0381826583,
+      "SellScore": 0.0314942554
+    },
+    {
+      "Tokens": "R\u002B\u002B T0 Vhi",
+      "Action": "Buy",
+      "BuyScore": 0.0761602388,
+      "SellScore": 0.0612255462
+    },
+    {
+      "Tokens": "R\u002B\u002B T\u002B Vlo",
+      "Action": "Hold",
+      "BuyScore": 0.048278986,
+      "SellScore": 0.0470307902
+    },
+    {
+      "Tokens": "R\u002B\u002B T\u002B Vhi",
+      "Action": "Buy",
+      "BuyScore": 0.0862565665,
+      "SellScore": 0.076762081
+    }
+  ]
+}

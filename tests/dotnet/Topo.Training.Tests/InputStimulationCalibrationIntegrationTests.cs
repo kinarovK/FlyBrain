@@ -19,8 +19,7 @@ public sealed class InputStimulationCalibrationIntegrationTests(ITestOutputHelpe
             return;
         }
 
-        var configurationPath = Environment.GetEnvironmentVariable("TOPO_BRAIN_CHANNELS_PATH")
-            ?? throw new InvalidOperationException("TOPO_BRAIN_CHANNELS_PATH is required for integration calibration.");
+        var configurationPath = FlyBrain.TestSupport.RepositoryFiles.TopoChannels;
         var configuration = BrainChannelConfiguration.LoadFromFile(configurationPath);
         using var httpClient = new HttpClient { BaseAddress = BrainServiceClientOptions.FromEnvironment().BaseAddress };
         var client = new BrainServiceClient(httpClient);
@@ -264,8 +263,7 @@ public sealed class InputStimulationCalibrationIntegrationTests(ITestOutputHelpe
 
     private static BrainChannelConfiguration LoadConfiguration()
     {
-        var configurationPath = Environment.GetEnvironmentVariable("TOPO_BRAIN_CHANNELS_PATH")
-            ?? throw new InvalidOperationException("TOPO_BRAIN_CHANNELS_PATH is required for integration calibration.");
+        var configurationPath = FlyBrain.TestSupport.RepositoryFiles.TopoChannels;
         return BrainChannelConfiguration.LoadFromFile(configurationPath);
     }
 

@@ -19,8 +19,7 @@ public sealed class NeuralReadoutDiscoveryIntegrationTests(ITestOutputHelper out
             return;
         }
 
-        var configurationPath = Environment.GetEnvironmentVariable("TOPO_BRAIN_CHANNELS_PATH")
-            ?? throw new InvalidOperationException("TOPO_BRAIN_CHANNELS_PATH is required for discovery.");
+        var configurationPath = FlyBrain.TestSupport.RepositoryFiles.TopoChannels;
         var channels = BrainChannelConfiguration.LoadFromFile(configurationPath);
         using var httpClient = new HttpClient { BaseAddress = BrainServiceClientOptions.FromEnvironment().BaseAddress };
         var client = new BrainServiceClient(httpClient);
@@ -125,10 +124,8 @@ public sealed class NeuralReadoutDiscoveryIntegrationTests(ITestOutputHelper out
             return;
         }
 
-        var channelsPath = Environment.GetEnvironmentVariable("TOPO_BRAIN_CHANNELS_PATH")
-            ?? throw new InvalidOperationException("TOPO_BRAIN_CHANNELS_PATH is required for discovery.");
-        var populationPath = Environment.GetEnvironmentVariable("TOPO_READOUT_POPULATION_PATH")
-            ?? throw new InvalidOperationException("TOPO_READOUT_POPULATION_PATH is required for discovery.");
+        var channelsPath = FlyBrain.TestSupport.RepositoryFiles.TopoChannels;
+        var populationPath = FlyBrain.TestSupport.RepositoryFiles.TopoReadoutPopulation;
         var channels = BrainChannelConfiguration.LoadFromFile(channelsPath);
         var population = ReadoutPopulationConfiguration.LoadFromFile(populationPath);
         using var httpClient = new HttpClient { BaseAddress = BrainServiceClientOptions.FromEnvironment().BaseAddress };

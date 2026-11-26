@@ -1,3 +1,3 @@
 # Current task
 
-`0010_FLYBRAIN-MERGE` — phases F0–F5 implemented; awaiting Windows build/test verification and the `staging -> main` PR. See `docs/project/tasks/0010_FLYBRAIN-MERGE/plan.md`.
+`0011_VIEWER-AND-LEARNING` — 3D brain viewer and mushroom-body learning. Sprint G0 (gate tooling) done 2026-11-25; sprint V0 (positions and layout data) in progress on `feature/0011-V0-layout`. See `docs/project/tasks/0011_VIEWER-AND-LEARNING/plan.md`.

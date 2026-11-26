@@ -160,6 +160,7 @@ public sealed class NeuralChannelTests
         public Task<BrainSession> CreateSessionAsync(CreateBrainSessionRequest request, CancellationToken cancellationToken = default) => throw new NotImplementedException();
         public Task<BrainSessionState> GetSessionStateAsync(string sessionId, CancellationToken cancellationToken = default) => throw new NotImplementedException();
         public Task<SessionRootsPage> GetSessionRootsAsync(string sessionId, int offset = 0, int limit = 64, CancellationToken cancellationToken = default) => throw new NotImplementedException();
+        public Task<SessionLayoutPage> GetSessionLayoutAsync(string sessionId, int offset = 0, int limit = 1024, CancellationToken cancellationToken = default) => throw new NotSupportedException();
         public Task<NeuronDiagnostic> GetNeuronDiagnosticAsync(string sessionId, long rootId, CancellationToken cancellationToken = default) => throw new NotImplementedException();
         public Task<BrainReadoutSnapshot> ReadoutAsync(string sessionId, IReadOnlyList<long> rootIds, CancellationToken cancellationToken = default) => throw new NotImplementedException();
         public Task<BrainResetResult> ResetSessionAsync(string sessionId, CancellationToken cancellationToken = default) => throw new NotImplementedException();

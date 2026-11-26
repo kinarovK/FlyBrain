@@ -142,6 +142,20 @@ public sealed class BrainProcessHostTests : IDisposable
         Assert.False(checks.Single(c => c.Name == "Trader market data").IsRequired);
     }
 
+    [Fact]
+    public void Setup_check_reports_brain_positions_as_optional()
+    {
+        var setup = new BrainSetup(Options(Path.Combine(_root, "missing", "python.exe")));
+
+        var missing = setup.Check().Single(c => c.Name == "Brain positions");
+        Assert.False(missing.IsOk);
+        Assert.False(missing.IsRequired);
+
+        Directory.CreateDirectory(Path.GetDirectoryName(setup.PositionsMetadataPath)!);
+        File.WriteAllText(setup.PositionsMetadataPath, "{}");
+        Assert.True(setup.Check().Single(c => c.Name == "Brain positions").IsOk);
+    }
+
     [Theory]
     [InlineData("{\"status\":\"ready\"}", "ready")]
     [InlineData("{\"status\":\"failed\",\"dataset\":null}", "failed")]

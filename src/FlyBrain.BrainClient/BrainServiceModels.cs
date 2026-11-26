@@ -264,6 +264,66 @@ public sealed class SessionRootsPage
     public required List<long> RootIds { get; init; }
 }
 
+public sealed class SessionLayoutPage
+{
+    [JsonPropertyName("session_id")]
+    public required string SessionId { get; init; }
+
+    [JsonPropertyName("offset")]
+    public required int Offset { get; init; }
+
+    [JsonPropertyName("limit")]
+    public required int Limit { get; init; }
+
+    [JsonPropertyName("returned_count")]
+    public required int ReturnedCount { get; init; }
+
+    [JsonPropertyName("total_root_count")]
+    public required int TotalRootCount { get; init; }
+
+    /// <summary>Always "um" (micrometres, FAFB space).</summary>
+    [JsonPropertyName("coordinate_unit")]
+    public required string CoordinateUnit { get; init; }
+
+    /// <summary>Same order as <see cref="SessionRootsPage.RootIds"/>: ascending numeric root ID.</summary>
+    [JsonPropertyName("entries")]
+    public required List<NeuronLayoutEntry> Entries { get; init; }
+}
+
+public sealed class NeuronLayoutEntry
+{
+    [JsonPropertyName("root_id")]
+    public required long RootId { get; init; }
+
+    [JsonPropertyName("x")]
+    public required float X { get; init; }
+
+    [JsonPropertyName("y")]
+    public required float Y { get; init; }
+
+    [JsonPropertyName("z")]
+    public required float Z { get; init; }
+
+    /// <summary>
+    /// False for a root without FlyWire annotation: X/Y/Z are then a placeholder
+    /// (mean of annotated graph neighbours) and must not be shown as a real position.
+    /// </summary>
+    [JsonPropertyName("has_position")]
+    public required bool HasPosition { get; init; }
+
+    [JsonPropertyName("super_class")]
+    public string? SuperClass { get; init; }
+
+    [JsonPropertyName("cell_class")]
+    public string? CellClass { get; init; }
+
+    [JsonPropertyName("cell_type")]
+    public string? CellType { get; init; }
+
+    [JsonPropertyName("side")]
+    public string? Side { get; init; }
+}
+
 public sealed class NeuronDiagnostic
 {
     [JsonPropertyName("session_id")]

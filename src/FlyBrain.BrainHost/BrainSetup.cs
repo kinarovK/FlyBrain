@@ -23,6 +23,8 @@ public sealed class BrainSetup(BrainHostOptions options) : IBrainSetup
 
     public string SparseGraphMetadataPath => Path.Combine(options.RepositoryRoot, "data", "flywire", "derived", "flytrader-sparse-v1", "metadata.json");
 
+    public string PositionsMetadataPath => Path.Combine(options.RepositoryRoot, "data", "flywire", "derived", "positions-v1", "metadata.json");
+
     public string MarketDataDirectory => Path.Combine(options.RepositoryRoot, "data", "market", "binance");
 
     public IReadOnlyList<SetupCheck> Check()
@@ -30,6 +32,7 @@ public sealed class BrainSetup(BrainHostOptions options) : IBrainSetup
         var repositoryOk = File.Exists(options.ServerScriptPath);
         var pythonOk = File.Exists(options.PythonExecutable);
         var dataOk = File.Exists(SparseGraphMetadataPath);
+        var positionsOk = File.Exists(PositionsMetadataPath);
         var marketFiles = Directory.Exists(MarketDataDirectory)
             ? Directory.EnumerateFiles(MarketDataDirectory, "*.zip").Count()
             : 0;
@@ -38,6 +41,7 @@ public sealed class BrainSetup(BrainHostOptions options) : IBrainSetup
             new("FlyBrain repository", repositoryOk, repositoryOk ? options.RepositoryRoot : $"brain_service not found under {options.RepositoryRoot}"),
             new("Python environment", pythonOk, pythonOk ? options.PythonExecutable : "Missing .venv - use 'Create Python environment'."),
             new("FlyWire brain data", dataOk, dataOk ? "Sparse graph flytrader-sparse-v1 present." : "Missing - use 'Download brain data' (several GB)."),
+            new("Brain positions", positionsOk, positionsOk ? "Neuron positions positions-v1 present." : "Optional: needed only by the 3D viewer - run scripts\\export_positions.py or 'Download brain data'.", IsRequired: false),
             new("Trader market data", marketFiles > 0, marketFiles > 0 ? $"{marketFiles} kline files." : $"Optional: put Binance BTCUSDT 1h zips into {MarketDataDirectory}.", IsRequired: false),
         ];
     }
@@ -80,6 +84,8 @@ public sealed class BrainSetup(BrainHostOptions options) : IBrainSetup
             [Path.Combine("scripts", "validate_connectome.py")],
             [Path.Combine("scripts", "preprocess_sparse_graph.py")],
             [Path.Combine("scripts", "validate_sparse_graph.py")],
+            [Path.Combine("scripts", "export_positions.py"), "--replace"],
+            [Path.Combine("scripts", "validate_positions.py")],
         ];
         foreach (var step in steps)
         {

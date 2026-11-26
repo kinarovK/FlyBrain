@@ -66,6 +66,17 @@ public sealed class BrainServiceClient : IBrainServiceClient
                 $"api/v1/brain/sessions/{EscapeSessionId(sessionId)}/roots?offset={offset.ToString(CultureInfo.InvariantCulture)}&limit={limit.ToString(CultureInfo.InvariantCulture)}"),
             cancellationToken);
 
+    public Task<SessionLayoutPage> GetSessionLayoutAsync(
+        string sessionId,
+        int offset = 0,
+        int limit = 1024,
+        CancellationToken cancellationToken = default) =>
+        SendForJsonAsync<SessionLayoutPage>(
+            new HttpRequestMessage(
+                HttpMethod.Get,
+                $"api/v1/brain/sessions/{EscapeSessionId(sessionId)}/layout?offset={offset.ToString(CultureInfo.InvariantCulture)}&limit={limit.ToString(CultureInfo.InvariantCulture)}"),
+            cancellationToken);
+
     public Task<NeuronDiagnostic> GetNeuronDiagnosticAsync(
         string sessionId,
         long rootId,

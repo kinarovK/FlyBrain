@@ -127,6 +127,7 @@ public sealed class NeuralReadoutTests
         public Task<BrainStepResult> StepAsync(string sessionId, BrainStepRequest request, CancellationToken cancellationToken = default) => throw new NotImplementedException();
         public Task<BrainSessionState> GetSessionStateAsync(string sessionId, CancellationToken cancellationToken = default) => throw new NotImplementedException();
         public Task<SessionRootsPage> GetSessionRootsAsync(string sessionId, int offset = 0, int limit = 64, CancellationToken cancellationToken = default) => throw new NotImplementedException();
+        public Task<SessionLayoutPage> GetSessionLayoutAsync(string sessionId, int offset = 0, int limit = 1024, CancellationToken cancellationToken = default) => throw new NotSupportedException();
         public Task<NeuronDiagnostic> GetNeuronDiagnosticAsync(string sessionId, long rootId, CancellationToken cancellationToken = default) => throw new NotImplementedException();
         public Task<BrainResetResult> ResetSessionAsync(string sessionId, CancellationToken cancellationToken = default) => throw new NotImplementedException();
         public Task DeleteSessionAsync(string sessionId, CancellationToken cancellationToken = default) => throw new NotImplementedException();

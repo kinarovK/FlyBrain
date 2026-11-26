@@ -99,6 +99,7 @@ public sealed class RepeatedTokenCalibrationRunnerTests
             return Task.FromResult(new BrainResetResult { SessionId = sessionId, Status = "reset", SimulationStep = 0, ResetWallSeconds = 0 });
         }
 
+        public Task<SessionLayoutPage> GetSessionLayoutAsync(string sessionId, int offset = 0, int limit = 1024, CancellationToken cancellationToken = default) => throw new NotSupportedException();
         public Task<NeuronDiagnostic> GetNeuronDiagnosticAsync(string sessionId, long rootId, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();

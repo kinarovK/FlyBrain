@@ -1,6 +1,6 @@
 # 0011 — 3D brain viewer and mushroom-body learning: implementation plan
 
-Status: **G0 done** (2026-11-25); V0 next.
+Status: **V0 done** (2026-11-26); V1 next. (G0 done 2026-11-25.)
 
 Two tracks, done in this order:
 

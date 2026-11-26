@@ -9,6 +9,8 @@ import scipy.sparse as sp
 
 from brain_service.config import ServiceConfig
 from brain_service.errors import ServiceError
+from brain_service.layout import LayoutProvider
+from scripts.brain_positions import BrainPositions
 from scripts.neural_dynamics import NeuralDynamicsError, _load_graph, default_config_path, default_data_dir, load_config, validate_config
 from scripts.whole_brain_scaling import WHOLE_NODES, WholeTier, load_whole_config, select_tier
 
@@ -40,6 +42,7 @@ class BrainRuntime:
         self.graph_metadata: dict | None = None
         self._graph: tuple[dict, dict] | None = None
         self._domains: dict[tuple[str, str], PreparedDomain] = {}
+        self._layout = LayoutProvider(self.data_dir, self._canonical_root_ids)
 
     def start(self) -> None:
         started = time.perf_counter()
@@ -93,6 +96,16 @@ class BrainRuntime:
             return domain
         except NeuralDynamicsError as exc:
             raise ServiceError("GRAPH_NOT_READY", "The requested real graph domain cannot be prepared.", 503) from exc
+
+    def _canonical_root_ids(self) -> np.ndarray:
+        if self._graph is None:
+            raise ServiceError("GRAPH_NOT_READY", "The validated real graph is not ready.", 503)
+        return np.asarray(self._graph[1]["root_ids"])
+
+    def layout(self) -> BrainPositions:
+        """Validated neuron positions, loaded lazily on first use (see LayoutProvider)."""
+        self.require_ready()
+        return self._layout.positions()
 
     def close(self) -> None:
         self.status = "stopping"

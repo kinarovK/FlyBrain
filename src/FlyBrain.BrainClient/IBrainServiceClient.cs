@@ -25,6 +25,13 @@ public interface IBrainServiceClient
         int limit = 64,
         CancellationToken cancellationToken = default);
 
+    /// <summary>One page of neuron positions (um) and classes, in the order of <see cref="GetSessionRootsAsync"/>.</summary>
+    Task<SessionLayoutPage> GetSessionLayoutAsync(
+        string sessionId,
+        int offset = 0,
+        int limit = 1024,
+        CancellationToken cancellationToken = default);
+
     Task<NeuronDiagnostic> GetNeuronDiagnosticAsync(
         string sessionId,
         long rootId,

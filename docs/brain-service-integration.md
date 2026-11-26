@@ -99,9 +99,9 @@ Query: zero-based `offset` (default `0`) and `limit` (default `1024`, minimum
   "session_id": "...", "offset": 0, "limit": 1024, "returned_count": 912,
   "total_root_count": 912, "coordinate_unit": "um",
   "entries": [
-    {"root_id": 720575940604010066, "x": 512.3, "y": 201.7, "z": 140.2,
+    {"root_id": 720575940603231916, "x": 448.152, "y": 225.884, "z": 48.64,
      "has_position": true, "super_class": "central", "cell_class": "ALPN",
-     "cell_type": "DA1_lPN", "side": "right"}
+     "cell_type": "DA1_lPN", "side": "left"}
   ]
 }
 ```

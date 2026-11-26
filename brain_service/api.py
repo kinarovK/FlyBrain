@@ -13,7 +13,7 @@ from brain_service import API_VERSION, SERVICE_VERSION
 from brain_service.config import ServiceConfig, load_service_config
 from brain_service.errors import ServiceError
 from brain_service.runtime import BrainRuntime
-from brain_service.schemas import BatchReadoutRequest, BatchReadoutResponse, BrainInfoResponse, CreateSessionRequest, CreateSessionResponse, ErrorEnvelope, LiveResponse, NeuronDiagnosticResponse, ReadyResponse, ResetResponse, SessionResponse, SessionRootsResponse, StateResponse, StepRequest, StepResponse
+from brain_service.schemas import BatchReadoutRequest, BatchReadoutResponse, BrainInfoResponse, CreateSessionRequest, CreateSessionResponse, ErrorEnvelope, LiveResponse, NeuronDiagnosticResponse, ReadyResponse, ResetResponse, SessionResponse, SessionLayoutResponse, SessionRootsResponse, StateResponse, StepRequest, StepResponse
 from brain_service.sessions import SessionManager
 
 
@@ -99,6 +99,14 @@ def create_app(*, config: ServiceConfig | None = None, runtime: BrainRuntime | N
         limit: int = ApiQuery(default=64, ge=1, le=256),
     ) -> SessionRootsResponse:
         return manager.read_root_page(session_id, offset, limit)
+
+    @app.get("/api/v1/brain/sessions/{session_id}/layout", response_model=SessionLayoutResponse, responses={404: {"model": ErrorEnvelope}, 422: {"model": ErrorEnvelope}, 503: {"model": ErrorEnvelope}})
+    def layout(
+        session_id: str,
+        offset: int = ApiQuery(default=0, ge=0),
+        limit: int = ApiQuery(default=min(1024, service_config.max_layout_page), ge=1, le=service_config.max_layout_page),
+    ) -> SessionLayoutResponse:
+        return manager.read_layout_page(session_id, offset, limit)
 
     @app.post("/api/v1/brain/sessions/{session_id}/readout", response_model=BatchReadoutResponse, responses={404: {"model": ErrorEnvelope}, 409: {"model": ErrorEnvelope}, 422: {"model": ErrorEnvelope}, 429: {"model": ErrorEnvelope}})
     def readout(session_id: str, request: BatchReadoutRequest) -> BatchReadoutResponse:

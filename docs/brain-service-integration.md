@@ -64,6 +64,7 @@ Use these lifecycle routes:
 | `POST /api/v1/brain/sessions/{session_id}/reset` | Resets dynamic state, counters, events, and clock; retains session configuration. |
 | `GET /api/v1/brain/sessions/{session_id}/state` | Bounded current-state summary. |
 | `GET /api/v1/brain/sessions/{session_id}/roots?offset=0&limit=64` | Bounded page of valid session-domain root IDs. |
+| `GET /api/v1/brain/sessions/{session_id}/layout?offset=0&limit=1024` | Bounded page of neuron positions (µm) and classes, same order as `/roots`. |
 | `POST /api/v1/brain/sessions/{session_id}/readout` | Bounded, read-only batch diagnostic snapshot for requested roots. |
 | `GET /api/v1/brain/sessions/{session_id}/neurons/{root_id}` | Explicit single-neuron diagnostic. |
 | `DELETE /api/v1/brain/sessions/{session_id}` | Releases the session; returns `204`. |
@@ -82,6 +83,41 @@ Use zero-based `offset` (default `0`) and `limit` (default `64`, minimum `1`,
 maximum `256`). A page beyond the end returns an empty `root_ids` list with the
 same `total_root_count`; it is not an error. This endpoint returns IDs only,
 not neuron diagnostics, graph details, or annotations.
+
+## Session-domain layout (neuron positions)
+
+`GET /api/v1/brain/sessions/{session_id}/layout` returns, for the same roots and
+in the same order as `/roots` (ascending numeric root ID), the neuron position
+and annotation classes. It is read-only and never touches simulation state.
+
+Query: zero-based `offset` (default `0`) and `limit` (default `1024`, minimum
+`1`, maximum `max_layout_page` from the service configuration, default
+`4096`). A page beyond the end returns an empty `entries` list.
+
+```json
+{
+  "session_id": "...", "offset": 0, "limit": 1024, "returned_count": 912,
+  "total_root_count": 912, "coordinate_unit": "um",
+  "entries": [
+    {"root_id": 720575940604010066, "x": 512.3, "y": 201.7, "z": 140.2,
+     "has_position": true, "super_class": "central", "cell_class": "ALPN",
+     "cell_type": "DA1_lPN", "side": "right"}
+  ]
+}
+```
+
+- Coordinates are the FlyWire annotation anchor point (`pos_x/y/z`, on the
+  neuron backbone, not the soma) converted from 4 × 4 × 40 nm voxels to µm, in
+  FAFB space (the axes of the FlyWire volume; z is the section axis).
+- `has_position: false` marks a canonical root without an annotation row (14
+  in v783). Its `x/y/z` is a placeholder — the mean of its annotated graph
+  neighbours — and its classes are `null`. Never present it as a real position.
+- Classes are `null` where the annotation is empty.
+- Positions come from `data/flywire/derived/positions-v1/`, built by
+  `scripts/export_positions.py`. The service loads and validates them once, on
+  the first layout request. If they are missing or invalid, layout requests
+  return `503 LAYOUT_NOT_READY`; brain readiness and all other routes are
+  unaffected.
 
 ## Batch neural readout
 
@@ -162,7 +198,7 @@ Important stable codes include:
 
 | Code | Typical HTTP status |
 |---|---:|
-| `GRAPH_NOT_READY` | 503 |
+| `GRAPH_NOT_READY`, `LAYOUT_NOT_READY` | 503 |
 | `SESSION_NOT_FOUND`, `UNKNOWN_ROOT_ID` | 404 |
 | `SESSION_BUSY`, `RUNAWAY_ACTIVITY`, `NUMERICAL_FAILURE` | 409 |
 | `INVALID_CONFIGURATION`, `INVALID_STEP_COUNT` | 422 |

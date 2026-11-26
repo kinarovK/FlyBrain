@@ -109,6 +109,24 @@ class SessionManager:
             "root_ids": [int(root_id) for root_id in root_ids],
         }
 
+    def read_layout_page(self, session_id: str, offset: int, limit: int) -> dict:
+        if limit > self.config.max_layout_page:
+            raise ServiceError("RESOURCE_LIMIT_EXCEEDED", "Layout page exceeds the configured limit.", 429, {"max_layout_page": self.config.max_layout_page})
+        session = self.get(session_id)
+        positions = self.runtime.layout()
+        root_ids = session.sorted_root_ids[offset : offset + limit]
+        indices = positions.indices_of(root_ids)
+        xyz = positions.xyz_um[indices]
+        has_position = positions.has_position[indices]
+        entries = [
+            {
+                "root_id": int(root_id), "x": float(point[0]), "y": float(point[1]), "z": float(point[2]), "has_position": bool(flag),
+                **{field: positions.class_value(field, int(index)) for field in ("super_class", "cell_class", "cell_type", "side")},
+            }
+            for root_id, index, point, flag in zip(root_ids, indices, xyz, has_position)
+        ]
+        return {"session_id": session.session_id, "offset": offset, "limit": limit, "returned_count": len(entries), "total_root_count": int(session.sorted_root_ids.size), "coordinate_unit": "um", "entries": entries}
+
     def read_batch_readout(self, session_id: str, root_ids: list[int]) -> dict:
         if len(root_ids) > self.config.max_stimulus_entries:
             raise ServiceError("RESOURCE_LIMIT_EXCEEDED", "Readout root list exceeds the configured limit.", 429)

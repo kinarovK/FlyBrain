@@ -1,0 +1,739 @@
+{
+  "phase": "7",
+  "model": {
+    "path": "D:\\AI\\Topo\\data\\models\\token-readout-v1.json",
+    "schema_version": 1,
+    "model_type": "multiclass_softmax_linear",
+    "raw_dimension": 384,
+    "retained_dimension": 128
+  },
+  "configuration": {
+    "execution_mode": "reference",
+    "transmitter_mode": "unsigned",
+    "brain_service_version": "0.1.0",
+    "channels_sha256": "A7555465073D636EC0F6217DDA8CA0C6959EB0DF26744162B174F845C632463B",
+    "readout_population_sha256": "0C32A3A3A892236271520CAF368B64CB7052A6A546CA12409D9A557E142283CD",
+    "timing": {
+      "amplitude": 100,
+      "stimulus_steps": 1,
+      "settle_steps": 22,
+      "observation_offset_steps": 22
+    }
+  },
+  "blind_corpus": {
+    "coordinates": 300,
+    "token_observations": 2188,
+    "seed": 20260923,
+    "phase_six_train_overlap": 0,
+    "phase_six_identity_note": "Phase 6 artifact did not persist coordinate IDs; overlap was reconstructed from its documented deterministic 200-coordinate corpus and split seed."
+  },
+  "exact_coordinate": {
+    "accuracy": 1,
+    "correct": 300,
+    "incorrect": 0,
+    "invalid": 0
+  },
+  "token_accuracy": {
+    "overall": 1,
+    "by_class": {
+      "North": 1,
+      "South": 1,
+      "East": 1,
+      "West": 1,
+      "Digit0": 1,
+      "Digit1": 1,
+      "Digit2": 1,
+      "Digit3": 1,
+      "Digit4": 1,
+      "Digit5": 1,
+      "Digit6": 1,
+      "Digit7": 1,
+      "Digit8": 1,
+      "Digit9": 1,
+      "Separator": 1
+    }
+  },
+  "components": {
+    "latitude_hemisphere_accuracy": 1,
+    "longitude_hemisphere_accuracy": 1,
+    "latitude_magnitude_accuracy": 1,
+    "longitude_magnitude_accuracy": 1
+  },
+  "angular_error_degrees": {
+    "mean": 0,
+    "median": 0,
+    "maximum": 0
+  },
+  "confidence_score": {
+    "correct": {
+      "count": 300,
+      "minimum": 0.9392608712492607,
+      "mean": 0.9916009651205487,
+      "maximum": 0.9983997378484583
+    },
+    "incorrect": {
+      "count": 0,
+      "minimum": 0,
+      "mean": 0,
+      "maximum": 0
+    }
+  },
+  "edge_cases": [
+    {
+      "source": "N0 E0",
+      "expected_tokens": [
+        "North",
+        "Digit0",
+        "Separator",
+        "East",
+        "Digit0"
+      ],
+      "predicted_tokens": [
+        "North",
+        "Digit0",
+        "Separator",
+        "East",
+        "Digit0"
+      ],
+      "decoded": "N0 E0",
+      "valid": true,
+      "exact": true,
+      "minimum_confidence_score": 0.995973030757955,
+      "angular_error_degrees": 0
+    },
+    {
+      "source": "N0 E0",
+      "expected_tokens": [
+        "North",
+        "Digit0",
+        "Separator",
+        "East",
+        "Digit0"
+      ],
+      "predicted_tokens": [
+        "North",
+        "Digit0",
+        "Separator",
+        "East",
+        "Digit0"
+      ],
+      "decoded": "N0 E0",
+      "valid": true,
+      "exact": true,
+      "minimum_confidence_score": 0.995973030757955,
+      "angular_error_degrees": 0
+    },
+    {
+      "source": "N90 E180",
+      "expected_tokens": [
+        "North",
+        "Digit9",
+        "Digit0",
+        "Separator",
+        "East",
+        "Digit1",
+        "Digit8",
+        "Digit0"
+      ],
+      "predicted_tokens": [
+        "North",
+        "Digit9",
+        "Digit0",
+        "Separator",
+        "East",
+        "Digit1",
+        "Digit8",
+        "Digit0"
+      ],
+      "decoded": "N90 E180",
+      "valid": true,
+      "exact": true,
+      "minimum_confidence_score": 0.935251251186541,
+      "angular_error_degrees": 0
+    },
+    {
+      "source": "N90 W180",
+      "expected_tokens": [
+        "North",
+        "Digit9",
+        "Digit0",
+        "Separator",
+        "West",
+        "Digit1",
+        "Digit8",
+        "Digit0"
+      ],
+      "predicted_tokens": [
+        "North",
+        "Digit9",
+        "Digit0",
+        "Separator",
+        "West",
+        "Digit1",
+        "Digit8",
+        "Digit0"
+      ],
+      "decoded": "N90 W180",
+      "valid": true,
+      "exact": true,
+      "minimum_confidence_score": 0.935251251186541,
+      "angular_error_degrees": 0
+    },
+    {
+      "source": "S90 E180",
+      "expected_tokens": [
+        "South",
+        "Digit9",
+        "Digit0",
+        "Separator",
+        "East",
+        "Digit1",
+        "Digit8",
+        "Digit0"
+      ],
+      "predicted_tokens": [
+        "South",
+        "Digit9",
+        "Digit0",
+        "Separator",
+        "East",
+        "Digit1",
+        "Digit8",
+        "Digit0"
+      ],
+      "decoded": "S90 E180",
+      "valid": true,
+      "exact": true,
+      "minimum_confidence_score": 0.9376251726656445,
+      "angular_error_degrees": 0
+    },
+    {
+      "source": "S90 W180",
+      "expected_tokens": [
+        "South",
+        "Digit9",
+        "Digit0",
+        "Separator",
+        "West",
+        "Digit1",
+        "Digit8",
+        "Digit0"
+      ],
+      "predicted_tokens": [
+        "South",
+        "Digit9",
+        "Digit0",
+        "Separator",
+        "West",
+        "Digit1",
+        "Digit8",
+        "Digit0"
+      ],
+      "decoded": "S90 W180",
+      "valid": true,
+      "exact": true,
+      "minimum_confidence_score": 0.9376251726656445,
+      "angular_error_degrees": 0
+    },
+    {
+      "source": "N1 E1",
+      "expected_tokens": [
+        "North",
+        "Digit1",
+        "Separator",
+        "East",
+        "Digit1"
+      ],
+      "predicted_tokens": [
+        "North",
+        "Digit1",
+        "Separator",
+        "East",
+        "Digit1"
+      ],
+      "decoded": "N1 E1",
+      "valid": true,
+      "exact": true,
+      "minimum_confidence_score": 0.995973030757955,
+      "angular_error_degrees": 0
+    },
+    {
+      "source": "S1 W1",
+      "expected_tokens": [
+        "South",
+        "Digit1",
+        "Separator",
+        "West",
+        "Digit1"
+      ],
+      "predicted_tokens": [
+        "South",
+        "Digit1",
+        "Separator",
+        "West",
+        "Digit1"
+      ],
+      "decoded": "S1 W1",
+      "valid": true,
+      "exact": true,
+      "minimum_confidence_score": 0.9799215508230659,
+      "angular_error_degrees": 0
+    },
+    {
+      "source": "N11 E11",
+      "expected_tokens": [
+        "North",
+        "Digit1",
+        "Digit1",
+        "Separator",
+        "East",
+        "Digit1",
+        "Digit1"
+      ],
+      "predicted_tokens": [
+        "North",
+        "Digit1",
+        "Digit1",
+        "Separator",
+        "East",
+        "Digit1",
+        "Digit1"
+      ],
+      "decoded": "N11 E11",
+      "valid": true,
+      "exact": true,
+      "minimum_confidence_score": 0.9902295379112457,
+      "angular_error_degrees": 0
+    },
+    {
+      "source": "N55 W55",
+      "expected_tokens": [
+        "North",
+        "Digit5",
+        "Digit5",
+        "Separator",
+        "West",
+        "Digit5",
+        "Digit5"
+      ],
+      "predicted_tokens": [
+        "North",
+        "Digit5",
+        "Digit5",
+        "Separator",
+        "West",
+        "Digit5",
+        "Digit5"
+      ],
+      "decoded": "N55 W55",
+      "valid": true,
+      "exact": true,
+      "minimum_confidence_score": 0.9917750845101008,
+      "angular_error_degrees": 0
+    },
+    {
+      "source": "S33 E111",
+      "expected_tokens": [
+        "South",
+        "Digit3",
+        "Digit3",
+        "Separator",
+        "East",
+        "Digit1",
+        "Digit1",
+        "Digit1"
+      ],
+      "predicted_tokens": [
+        "South",
+        "Digit3",
+        "Digit3",
+        "Separator",
+        "East",
+        "Digit1",
+        "Digit1",
+        "Digit1"
+      ],
+      "decoded": "S33 E111",
+      "valid": true,
+      "exact": true,
+      "minimum_confidence_score": 0.9799215508230659,
+      "angular_error_degrees": 0
+    },
+    {
+      "source": "N88 W177",
+      "expected_tokens": [
+        "North",
+        "Digit8",
+        "Digit8",
+        "Separator",
+        "West",
+        "Digit1",
+        "Digit7",
+        "Digit7"
+      ],
+      "predicted_tokens": [
+        "North",
+        "Digit8",
+        "Digit8",
+        "Separator",
+        "West",
+        "Digit1",
+        "Digit7",
+        "Digit7"
+      ],
+      "decoded": "N88 W177",
+      "valid": true,
+      "exact": true,
+      "minimum_confidence_score": 0.9951907048311326,
+      "angular_error_degrees": 0
+    }
+  ],
+  "manual_examples": [
+    {
+      "source": "N35 W54",
+      "expected_tokens": [
+        "North",
+        "Digit3",
+        "Digit5",
+        "Separator",
+        "West",
+        "Digit5",
+        "Digit4"
+      ],
+      "predicted_tokens": [
+        "North",
+        "Digit3",
+        "Digit5",
+        "Separator",
+        "West",
+        "Digit5",
+        "Digit4"
+      ],
+      "decoded": "N35 W54",
+      "valid": true,
+      "exact": true,
+      "minimum_confidence_score": 0.9710995314047234,
+      "angular_error_degrees": 0
+    },
+    {
+      "source": "N47 E22",
+      "expected_tokens": [
+        "North",
+        "Digit4",
+        "Digit7",
+        "Separator",
+        "East",
+        "Digit2",
+        "Digit2"
+      ],
+      "predicted_tokens": [
+        "North",
+        "Digit4",
+        "Digit7",
+        "Separator",
+        "East",
+        "Digit2",
+        "Digit2"
+      ],
+      "decoded": "N47 E22",
+      "valid": true,
+      "exact": true,
+      "minimum_confidence_score": 0.9852956861504737,
+      "angular_error_degrees": 0
+    },
+    {
+      "source": "S23 E117",
+      "expected_tokens": [
+        "South",
+        "Digit2",
+        "Digit3",
+        "Separator",
+        "East",
+        "Digit1",
+        "Digit1",
+        "Digit7"
+      ],
+      "predicted_tokens": [
+        "South",
+        "Digit2",
+        "Digit3",
+        "Separator",
+        "East",
+        "Digit1",
+        "Digit1",
+        "Digit7"
+      ],
+      "decoded": "S23 E117",
+      "valid": true,
+      "exact": true,
+      "minimum_confidence_score": 0.9437039618673092,
+      "angular_error_degrees": 0
+    }
+  ],
+  "repeated_token_suite": [
+    {
+      "source": "N11 E11",
+      "expected_tokens": [
+        "North",
+        "Digit1",
+        "Digit1",
+        "Separator",
+        "East",
+        "Digit1",
+        "Digit1"
+      ],
+      "predicted_tokens": [
+        "North",
+        "Digit1",
+        "Digit1",
+        "Separator",
+        "East",
+        "Digit1",
+        "Digit1"
+      ],
+      "decoded": "N11 E11",
+      "valid": true,
+      "exact": true,
+      "minimum_confidence_score": 0.9902295379112457,
+      "angular_error_degrees": 0
+    },
+    {
+      "source": "N22 E22",
+      "expected_tokens": [
+        "North",
+        "Digit2",
+        "Digit2",
+        "Separator",
+        "East",
+        "Digit2",
+        "Digit2"
+      ],
+      "predicted_tokens": [
+        "North",
+        "Digit2",
+        "Digit2",
+        "Separator",
+        "East",
+        "Digit2",
+        "Digit2"
+      ],
+      "decoded": "N22 E22",
+      "valid": true,
+      "exact": true,
+      "minimum_confidence_score": 0.994624088391266,
+      "angular_error_degrees": 0
+    },
+    {
+      "source": "N33 E33",
+      "expected_tokens": [
+        "North",
+        "Digit3",
+        "Digit3",
+        "Separator",
+        "East",
+        "Digit3",
+        "Digit3"
+      ],
+      "predicted_tokens": [
+        "North",
+        "Digit3",
+        "Digit3",
+        "Separator",
+        "East",
+        "Digit3",
+        "Digit3"
+      ],
+      "decoded": "N33 E33",
+      "valid": true,
+      "exact": true,
+      "minimum_confidence_score": 0.995973030757955,
+      "angular_error_degrees": 0
+    },
+    {
+      "source": "N44 E44",
+      "expected_tokens": [
+        "North",
+        "Digit4",
+        "Digit4",
+        "Separator",
+        "East",
+        "Digit4",
+        "Digit4"
+      ],
+      "predicted_tokens": [
+        "North",
+        "Digit4",
+        "Digit4",
+        "Separator",
+        "East",
+        "Digit4",
+        "Digit4"
+      ],
+      "decoded": "N44 E44",
+      "valid": true,
+      "exact": true,
+      "minimum_confidence_score": 0.988392185797917,
+      "angular_error_degrees": 0
+    },
+    {
+      "source": "N55 W55",
+      "expected_tokens": [
+        "North",
+        "Digit5",
+        "Digit5",
+        "Separator",
+        "West",
+        "Digit5",
+        "Digit5"
+      ],
+      "predicted_tokens": [
+        "North",
+        "Digit5",
+        "Digit5",
+        "Separator",
+        "West",
+        "Digit5",
+        "Digit5"
+      ],
+      "decoded": "N55 W55",
+      "valid": true,
+      "exact": true,
+      "minimum_confidence_score": 0.9917750845101008,
+      "angular_error_degrees": 0
+    },
+    {
+      "source": "N66 E66",
+      "expected_tokens": [
+        "North",
+        "Digit6",
+        "Digit6",
+        "Separator",
+        "East",
+        "Digit6",
+        "Digit6"
+      ],
+      "predicted_tokens": [
+        "North",
+        "Digit6",
+        "Digit6",
+        "Separator",
+        "East",
+        "Digit6",
+        "Digit6"
+      ],
+      "decoded": "N66 E66",
+      "valid": true,
+      "exact": true,
+      "minimum_confidence_score": 0.9932611191778584,
+      "angular_error_degrees": 0
+    },
+    {
+      "source": "N77 W77",
+      "expected_tokens": [
+        "North",
+        "Digit7",
+        "Digit7",
+        "Separator",
+        "West",
+        "Digit7",
+        "Digit7"
+      ],
+      "predicted_tokens": [
+        "North",
+        "Digit7",
+        "Digit7",
+        "Separator",
+        "West",
+        "Digit7",
+        "Digit7"
+      ],
+      "decoded": "N77 W77",
+      "valid": true,
+      "exact": true,
+      "minimum_confidence_score": 0.9940024110755448,
+      "angular_error_degrees": 0
+    },
+    {
+      "source": "N88 E88",
+      "expected_tokens": [
+        "North",
+        "Digit8",
+        "Digit8",
+        "Separator",
+        "East",
+        "Digit8",
+        "Digit8"
+      ],
+      "predicted_tokens": [
+        "North",
+        "Digit8",
+        "Digit8",
+        "Separator",
+        "East",
+        "Digit8",
+        "Digit8"
+      ],
+      "decoded": "N88 E88",
+      "valid": true,
+      "exact": true,
+      "minimum_confidence_score": 0.9951907048311326,
+      "angular_error_degrees": 0
+    },
+    {
+      "source": "N9 E99",
+      "expected_tokens": [
+        "North",
+        "Digit9",
+        "Separator",
+        "East",
+        "Digit9",
+        "Digit9"
+      ],
+      "predicted_tokens": [
+        "North",
+        "Digit9",
+        "Separator",
+        "East",
+        "Digit9",
+        "Digit9"
+      ],
+      "decoded": "N9 E99",
+      "valid": true,
+      "exact": true,
+      "minimum_confidence_score": 0.935251251186541,
+      "angular_error_degrees": 0
+    },
+    {
+      "source": "S33 E111",
+      "expected_tokens": [
+        "South",
+        "Digit3",
+        "Digit3",
+        "Separator",
+        "East",
+        "Digit1",
+        "Digit1",
+        "Digit1"
+      ],
+      "predicted_tokens": [
+        "South",
+        "Digit3",
+        "Digit3",
+        "Separator",
+        "East",
+        "Digit1",
+        "Digit1",
+        "Digit1"
+      ],
+      "decoded": "S33 E111",
+      "valid": true,
+      "exact": true,
+      "minimum_confidence_score": 0.9799215508230659,
+      "angular_error_degrees": 0
+    }
+  ],
+  "performance": {
+    "total_wall_seconds": 44.4592408,
+    "average_coordinate_seconds": 0.14819746933333333
+  }
+}

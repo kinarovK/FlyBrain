@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>FlyBrain</AssemblyName>
+    <RootNamespace>FlyBrain.App</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FlyBrain.Common\FlyBrain.Common.csproj" />
+    <ProjectReference Include="..\FlyBrain.BrainClient\FlyBrain.BrainClient.csproj" />
+    <ProjectReference Include="..\FlyBrain.BrainHost\FlyBrain.BrainHost.csproj" />
+    <ProjectReference Include="..\FlyBrain.Modules.Abstractions\FlyBrain.Modules.Abstractions.csproj" />
+    <ProjectReference Include="..\Topo.Module\Topo.Module.csproj" />
+    <ProjectReference Include="..\Trader.Module\Trader.Module.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="FlyBrain.App.Tests" />
+  </ItemGroup>
+</Project>

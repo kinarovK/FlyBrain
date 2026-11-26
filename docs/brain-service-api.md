@@ -51,12 +51,20 @@ ascending numeric root IDs, stable across reset, with a default limit of 64
 and maximum of 256. Root enumeration is read-only and exposes no graph or
 neural-state details.
 
+Neuron positions for a session's roots come from `GET
+/api/v1/brain/sessions/{session_id}/layout?offset=0&limit=1024` (same order as
+`/roots`, maximum page `max_layout_page`, default 4,096). Coordinates are µm
+in FAFB space; `has_position=false` marks the unannotated placeholders. The
+positions file is built by `python scripts\export_positions.py` and validated by
+`python scripts\validate_positions.py`; without it, layout requests return
+`503 LAYOUT_NOT_READY` while the brain stays ready.
+
 ## Limits, errors, and lifecycle
 
 Defaults are max four sessions, one whole-brain session, 1,000 steps/request,
 256 stimulus entries, and 10,000 returned events. A same-session concurrent
 mutation returns `409 SESSION_BUSY`; resource limits return `429
-RESOURCE_LIMIT_EXCEEDED`. Other stable error codes include `GRAPH_NOT_READY`,
+RESOURCE_LIMIT_EXCEEDED`. Other stable error codes include `GRAPH_NOT_READY`, `LAYOUT_NOT_READY`,
 `SESSION_NOT_FOUND`, `UNKNOWN_ROOT_ID`, `INVALID_CONFIGURATION`,
 `INVALID_STEP_COUNT`, `NUMERICAL_FAILURE`, `RUNAWAY_ACTIVITY`, and
 `INTERNAL_ERROR`. Errors use `{"error":{"code", "message", "details"}}`

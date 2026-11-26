@@ -10,5 +10,7 @@
   "max_returned_events": 10000,
   "max_abs_external_current_mV_per_ms": 100.0,
   "shutdown_timeout_seconds": 30.0,
-  "log_level": "INFO"
+  "log_level": "INFO",
+  "eager_whole_domain": false,
+  "max_layout_page": 4096
 }

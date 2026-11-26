@@ -185,6 +185,28 @@ class SessionRootsResponse(PublicModel):
     root_ids: list[RootId]
 
 
+class LayoutEntry(PublicModel):
+    root_id: RootId
+    x: float
+    y: float
+    z: float
+    has_position: bool = Field(description="False when the root has no FlyWire annotation; x/y/z are then a placeholder (mean of annotated graph neighbours), not a real position.")
+    super_class: str | None
+    cell_class: str | None
+    cell_type: str | None
+    side: str | None
+
+
+class SessionLayoutResponse(PublicModel):
+    session_id: str
+    offset: int = Field(ge=0)
+    limit: int = Field(ge=1)
+    returned_count: int = Field(ge=0)
+    total_root_count: int = Field(ge=0)
+    coordinate_unit: Literal["um"]
+    entries: list[LayoutEntry] = Field(description="Same order as GET .../roots: ascending numeric root ID.")
+
+
 class SourceBiologyInfo(PublicModel):
     dataset: str
     canonical_neuron_count: int

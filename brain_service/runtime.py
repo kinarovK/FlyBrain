@@ -9,6 +9,8 @@ import scipy.sparse as sp
 
 from brain_service.config import ServiceConfig
 from brain_service.errors import ServiceError
+from brain_service.layout import LayoutProvider
+from scripts.brain_positions import BrainPositions
 from scripts.neural_dynamics import NeuralDynamicsError, _load_graph, default_config_path, default_data_dir, load_config, validate_config
 from scripts.whole_brain_scaling import WHOLE_NODES, WholeTier, load_whole_config, select_tier
 
@@ -40,6 +42,7 @@ class BrainRuntime:
         self.graph_metadata: dict | None = None
         self._graph: tuple[dict, dict] | None = None
         self._domains: dict[tuple[str, str], PreparedDomain] = {}
+        self._layout = LayoutProvider(self.data_dir, self._canonical_root_ids)
 
     def start(self) -> None:
         started = time.perf_counter()
@@ -53,11 +56,13 @@ class BrainRuntime:
             if metadata.get("dataset") != "FlyWire FAFB v783" or int(arrays["root_ids"].size) != WHOLE_NODES:
                 raise NeuralDynamicsError("Required real FAFB v783 canonical graph is unavailable.")
             self.phase4_config, self.whole_config, self.graph_metadata, self._graph = phase4, whole, metadata, (metadata, arrays)
-            # Both supported domains are prepared before readiness, sharing the
-            # single validated memory-mapped graph held above.
+            # The reference domain is always prepared before readiness. The whole
+            # domain (~1.4 GB) is prepared eagerly only when configured; otherwise
+            # it is prepared on the first whole-session request.
             self.status = "ready"
             self.domain("reference")
-            self.domain("whole")
+            if self.config.eager_whole_domain:
+                self.domain("whole")
             self.startup_timings["startup_seconds"] = time.perf_counter() - started
         except Exception as exc:
             self.status, self.failure_reason = "failed", "real graph/configuration validation failed"
@@ -91,6 +96,16 @@ class BrainRuntime:
             return domain
         except NeuralDynamicsError as exc:
             raise ServiceError("GRAPH_NOT_READY", "The requested real graph domain cannot be prepared.", 503) from exc
+
+    def _canonical_root_ids(self) -> np.ndarray:
+        if self._graph is None:
+            raise ServiceError("GRAPH_NOT_READY", "The validated real graph is not ready.", 503)
+        return np.asarray(self._graph[1]["root_ids"])
+
+    def layout(self) -> BrainPositions:
+        """Validated neuron positions, loaded lazily on first use (see LayoutProvider)."""
+        self.require_ready()
+        return self._layout.positions()
 
     def close(self) -> None:
         self.status = "stopping"
